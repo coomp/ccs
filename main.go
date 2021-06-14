@@ -1,8 +1,6 @@
 package main
 
-import (
-	"coomp/log"
-)
+import "github.com/coomp/ccs/log"
 
 // main 工程入口
 func main() {

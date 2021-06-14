@@ -17,19 +17,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
-      <change afterPath="$PROJECT_DIR$/configs/Config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/queue.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/redis/UniqueID/flowing.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/def/Net.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/net/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/net/request/Request.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ccs.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/errors/Err.go" beforeDir="false" afterPath="$PROJECT_DIR$/errors/Err.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/logp.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/logp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/comm/commom.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/commom.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/lua.script" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/Exchange.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/Exchange.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/Message.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/Message.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +70,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.go" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
@@ -157,6 +162,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
@@ -182,10 +188,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="816" y="256" width="570" height="508" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623598730597" />
-    <state x="847" y="289" key="FileChooserDialogImpl" timestamp="1623597410538">
+    <state x="847" y="289" key="FileChooserDialogImpl" timestamp="1623664134808">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="847" y="289" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1623597410538" />
+    <state x="847" y="289" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1623664134808" />
     <state width="1860" height="168" key="GridCell.Tab.0.bottom" timestamp="1623663265375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

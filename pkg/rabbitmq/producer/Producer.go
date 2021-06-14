@@ -1,12 +1,13 @@
 package producer
 
 import (
-	"coomp/configs"
-	"coomp/pkg/rabbitmq/base"
-	"coomp/pkg/rabbitmq/comm"
-	"coomp/pkg/tenant/mq/RabbitMQ"
+	"github.com/coomp/ccs/configs"
+	"github.com/coomp/ccs/pkg/rabbitmq/base"
 	"sync"
 	"time"
+
+	"github.com/coomp/ccs/pkg/rabbitmq/comm"
+	"github.com/coomp/ccs/pkg/tenant/mq/RabbitMQ"
 )
 
 // RabbitMQProducer RabbitMQ 生产者
@@ -60,4 +61,3 @@ func (p *RabbitMQProducer) Init() {
 		}
 	}()
 }
-
