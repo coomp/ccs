@@ -17,31 +17,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
-      <change afterPath="$PROJECT_DIR$/comm/str.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/ilog.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/elasticsearch/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/elasticsearch/store.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/commom.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/redis/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/redis/UniqueID/lua.script" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/tenant/cache/Cache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/tenant/mq/Cluster.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/tenant/mq/Exchange.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/tenant/mq/Message.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmd/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configs/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/README.MD" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go_build_ccs_main_go.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go_build_main_go.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/logp.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/logp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/zap/Zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/zap/Zap.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/def/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/auth/Engine.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/pulsar/auth/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/auth/README.MD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/Cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +64,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\ccs\pkg\tenant\mq\RabbitMQ" />
       <recent name="E:\ccs\pkg\rabbitmq\comm" />
       <recent name="E:\ccs\pkg\tenant\mq" />
       <recent name="E:\ccs\log" />
@@ -184,10 +168,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="412" y="165" width="1092" height="715" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623597419292" />
-    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1623598462195">
+    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1623657260460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1623598462195" />
+    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1623657260460" />
     <state x="816" y="256" width="570" height="508" key="EnvironmentVariablesDialog" timestamp="1623598730597">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -3,6 +3,7 @@ package producer
 import (
 	"coomp/log"
 	"coomp/pkg/rabbitmq/comm"
+	"coomp/pkg/tenant/mq/RabbitMQ"
 	"sync"
 	"time"
 )
@@ -26,18 +27,13 @@ type RabbitMQProducer struct {
 }
 
 // NewRabbitMQProducer NewRabbitMQProducer 创建
-func NewRabbitMQProducer(hippoName string) (*RabbitMQProducer, error) {
+func NewRabbitMQProducer(SerialID string) (*RabbitMQProducer, error) {
 
-	sec, err := config.NewProducerConfig(hippoName)
-	if err != nil {
-		log.L.Error("NewRabbitMQProducer err:%v", err)
-		return nil, err
-	}
+
 	p := new(RabbitMQProducer)
 	p.state = comm.READY
-	p.producerConfig = sec
-	p.topics = sec.Topics
-	p.groupName = sec.GroupName
+	p.topics = RabbitMQ.GetMQTopic(SerialID)
+	p.groupName = RabbitMQ.GetMQExchange(SerialID)
 	p.producerId = comm.GenerateMQID(p.groupName)
 	p.heartbeatRetryTimes = 0
 	p.lastHeartbeatTime = time.Now()
