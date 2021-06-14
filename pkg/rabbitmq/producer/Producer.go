@@ -1,7 +1,8 @@
 package producer
 
 import (
-	"coomp/log"
+	"coomp/configs"
+	"coomp/pkg/rabbitmq/base"
 	"coomp/pkg/rabbitmq/comm"
 	"coomp/pkg/tenant/mq/RabbitMQ"
 	"sync"
@@ -13,23 +14,18 @@ type RabbitMQProducer struct {
 	producerId           string
 	clientAddress        string
 	groupName            string
-	producerConfig       *config.ProducerConfig
-	state                def.NodeState
+	state                comm.NodeState
 	heartbeatRetryTimes  int
 	lastHeartbeatTime    time.Time
-	masterService        *service.MasterService
-	brokerServices       map[string]*service.BrokerWriteService
 	mux                  *sync.RWMutex
 	topics               []string
-	topicSelectorMap     map[string]*RoundRobinQueueSelector
+	topicSelectorMap     map[string]*base.RoundRobinQueueSelector
 	heartbeatServiceTick *time.Ticker
 	readyQueue           chan struct{}
 }
 
 // NewRabbitMQProducer NewRabbitMQProducer 创建
 func NewRabbitMQProducer(SerialID string) (*RabbitMQProducer, error) {
-
-
 	p := new(RabbitMQProducer)
 	p.state = comm.READY
 	p.topics = RabbitMQ.GetMQTopic(SerialID)
@@ -37,10 +33,9 @@ func NewRabbitMQProducer(SerialID string) (*RabbitMQProducer, error) {
 	p.producerId = comm.GenerateMQID(p.groupName)
 	p.heartbeatRetryTimes = 0
 	p.lastHeartbeatTime = time.Now()
-	p.topicSelectorMap = make(map[string]*RoundRobinQueueSelector)
-	p.brokerServices = make(map[string]*service.BrokerWriteService)
+	p.topicSelectorMap = make(map[string]*base.RoundRobinQueueSelector)
 	p.mux = new(sync.RWMutex)
-	p.heartbeatServiceTick = time.NewTicker(sec.HeartbeatPeriod)
+	p.heartbeatServiceTick = time.NewTicker(RabbitMQ.GetHeartbeatPeriod(SerialID))
 	p.readyQueue = make(chan struct{})
 	p.clientAddress = comm.GetLocalIpString()
 	p.Init()
@@ -50,7 +45,7 @@ func NewRabbitMQProducer(SerialID string) (*RabbitMQProducer, error) {
 // RabbitMQProducer 初始化
 func (p *RabbitMQProducer) Init() {
 	var addrPrefix string
-	if p.producerConfig.IsTest {
+	if configs.Conf.Global.Env == 0 {
 		addrPrefix = "ip://"
 	} else {
 		addrPrefix = "dns://"

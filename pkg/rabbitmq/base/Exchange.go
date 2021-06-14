@@ -1,4 +1,16 @@
-package mq
+package base
+
+// ExchangeGroups 交换机信息
+type ExchangeGroups struct {
+	_msgpack       struct{}   `msgpack:",asArray"`
+	Class          string     `json:"@type,omitempty" msgpack:"-"`
+	GroupName      string     `json:"groupName,omitempty"`
+	Brokers        []Exchange `json:"exchange,omitempty"`
+	TimeStamp      int64      `json:"timeStamp,omitempty"`
+	IsWritable     bool       `json:"isWritable,omitempty"`
+	IsReadable     bool       `json:"isReadable,omitempty"`
+	DelayTimeStamp int64      `json:"delayTimeStamp,omitempty"`
+}
 
 // Exchange 交换机信息
 type Exchange struct {
@@ -8,6 +20,8 @@ type Exchange struct {
 	autoDelete   bool              // 与这个Exchange绑定的Queue或Exchange都与此解绑时，会删除本交换器
 	internal     bool              // 设置是否内置，true为内置。如果是内置交换器，客户端无法发送消息到这个交换器中，只能通过交换器路由到交换器这种方式
 	argument     map[string]string // 其他一些结构化参数
+	ip           string
+	port         int
 }
 
 // SetName 设置 交换器名称

@@ -9,7 +9,7 @@ type ErrCode int
 
 const (
 	Succ ErrCode = 0
-	// 这里扩展错误码 并在下面对应补充中文释义
+	// 生成mqclient冲突
 	LuaErr ErrCode = 110001
 	// 这里扩展错误码 并在下面对应补充中文释义
 )

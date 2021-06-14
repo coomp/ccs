@@ -1,4 +1,4 @@
-package mq
+package base
 
 // Message 消息的设置
 type Message struct {

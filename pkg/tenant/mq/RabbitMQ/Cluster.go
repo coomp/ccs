@@ -1,6 +1,9 @@
 package RabbitMQ
 
-import "coomp/log"
+import (
+	"coomp/log"
+	"time"
+)
 
 // GetMQExchange 获取交换机的地址
 func GetMQExchange(Serial string) string {
@@ -14,4 +17,11 @@ func GetMQTopic(Serial string) []string {
 	// 这里应该是走配置下发到中控的缓存,当请求来的时候,通过唯一的标识来获取topic
 	log.L.Debug("get a RabbitMQ topic SerialId:%s", Serial)
 	return []string{"Test_Rmq_topic"}
+}
+
+// GetHeartbeatPeriod
+func GetHeartbeatPeriod(Serial string) time.Duration {
+	// 这里应该是走配置下发到中控的缓存,当请求来的时候,通过唯一的标识来获取topic
+	log.L.Debug("get a RabbitMQ GetHeartbeatPeriod SerialId:%s", Serial)
+	return time.Duration(20) * time.Second
 }

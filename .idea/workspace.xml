@@ -17,14 +17,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
-      <change afterPath="$PROJECT_DIR$/api/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configs/Config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/queue.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/redis/UniqueID/flowing.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/errors/Err.go" beforeDir="false" afterPath="$PROJECT_DIR$/errors/Err.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/Cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/lua.script" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/Exchange.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/Exchange.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/Message.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/Message.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,11 +70,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\ccs\pkg\rabbitmq\base" />
       <recent name="E:\ccs\pkg\tenant\mq\RabbitMQ" />
       <recent name="E:\ccs\pkg\rabbitmq\comm" />
       <recent name="E:\ccs\pkg\tenant\mq" />
       <recent name="E:\ccs\log" />
-      <recent name="E:\ccs\log\default" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\ccs\pkg\pulsar" />
@@ -168,10 +174,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="412" y="165" width="1092" height="715" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1623597419292" />
-    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1623657260460">
+    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1623659158304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1623657260460" />
+    <state x="658" y="310" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1623659158304" />
     <state x="816" y="256" width="570" height="508" key="EnvironmentVariablesDialog" timestamp="1623598730597">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -180,22 +186,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="847" y="289" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1623597410538" />
-    <state width="1860" height="168" key="GridCell.Tab.0.bottom" timestamp="1623602550813">
+    <state width="1860" height="168" key="GridCell.Tab.0.bottom" timestamp="1623663265375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623602550813" />
-    <state width="1860" height="168" key="GridCell.Tab.0.center" timestamp="1623602550813">
+    <state width="1860" height="168" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1623663265375" />
+    <state width="1860" height="168" key="GridCell.Tab.0.center" timestamp="1623663265375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623602550813" />
-    <state width="1860" height="168" key="GridCell.Tab.0.left" timestamp="1623602550813">
+    <state width="1860" height="168" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1623663265375" />
+    <state width="1860" height="168" key="GridCell.Tab.0.left" timestamp="1623663265375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623602550813" />
-    <state width="1860" height="168" key="GridCell.Tab.0.right" timestamp="1623602550813">
+    <state width="1860" height="168" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1623663265375" />
+    <state width="1860" height="168" key="GridCell.Tab.0.right" timestamp="1623663265375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623602550813" />
+    <state width="1860" height="168" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1623663265375" />
     <state x="459" y="154" key="SettingsEditor" timestamp="1623598746963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
