@@ -1,8 +1,10 @@
-package mian
+package main
 
-import "fmt"
+import (
+	"coomp/log"
+)
 
 // main 工程入口
 func main() {
-	fmt.Printf("BEGIN RUN")
+	log.L.Debug("there is log test")
 }

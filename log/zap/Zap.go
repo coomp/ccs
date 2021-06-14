@@ -1,7 +1,7 @@
 package zap
 import (
-
-	"github.com/xiaomeng79/go-log/fileout"
+	Default "coomp/log/default"
+	"coomp/log/fileout"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"
@@ -10,6 +10,54 @@ import (
 
 type Log struct {
 	logger *zap.Logger
+}
+
+func (l Log) Debug(s string, i ...interface{}) {
+	l.logger.Debug(s)
+}
+
+func (l Log) Info(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Warn(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Error(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Panic(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Fatal(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Debugf(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Infof(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Warnf(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Errorf(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Panicf(s string, i ...interface{}) {
+	panic("implement me")
+}
+
+func (l Log) Fatalf(s string, i ...interface{}) {
+	panic("implement me")
 }
 
 //var Log *zap.Logger //全局日志
@@ -34,16 +82,16 @@ func parseLevel(lvl string) zapcore.Level {
 }
 
 //创建日志
-func New(opts ...conf.Option) *Log {
-	o := &conf.Options{
-		LogPath:     conf.LogPath,
-		LogName:     conf.LogName,
-		LogLevel:    conf.LogLevel,
-		MaxSize:     conf.MaxSize,
-		MaxAge:      conf.MaxAge,
-		Stacktrace:  conf.Stacktrace,
-		IsStdOut:    conf.IsStdOut,
-		ProjectName: conf.ProjectName,
+func New(opts ...Default.Option) *Log {
+	o := &Default.Options{
+		LogPath:     Default.LogPath,
+		LogName:     Default.LogName,
+		LogLevel:    Default.LogLevel,
+		MaxSize:     Default.MaxSize,
+		MaxAge:      Default.MaxAge,
+		Stacktrace:  Default.Stacktrace,
+		IsStdOut:    Default.IsStdOut,
+		ProjectName: Default.ProjectName,
 	}
 	for _, opt := range opts {
 		opt(o)
