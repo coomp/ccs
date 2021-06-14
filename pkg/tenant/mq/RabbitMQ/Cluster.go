@@ -1,6 +1,6 @@
 package RabbitMQ
 
-import "coomp/log"
+import "github.com/coomp/ccs/log"
 
 // GetMQExchange 获取交换机的地址
 func GetMQExchange(Serial string) string {

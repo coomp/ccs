@@ -1,7 +1,6 @@
 package log
-import (
-	"coomp/log/zap"
-)
+
+import "github.com/coomp/ccs/log/zap"
 
 //默认
 var L ILog = zap.New()

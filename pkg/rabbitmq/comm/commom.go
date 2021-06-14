@@ -1,12 +1,13 @@
 package comm
 
 import (
-	"coomp/comm"
 	"net"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/coomp/ccs/comm"
 )
 
 // GetLocalIpString 获取本地ip

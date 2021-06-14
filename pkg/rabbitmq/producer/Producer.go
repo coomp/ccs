@@ -1,11 +1,11 @@
 package producer
 
 import (
-	"coomp/log"
-	"coomp/pkg/rabbitmq/comm"
-	"coomp/pkg/tenant/mq/RabbitMQ"
 	"sync"
 	"time"
+
+	"github.com/coomp/ccs/pkg/rabbitmq/comm"
+	"github.com/coomp/ccs/pkg/tenant/mq/RabbitMQ"
 )
 
 // RabbitMQProducer RabbitMQ 生产者
@@ -28,7 +28,6 @@ type RabbitMQProducer struct {
 
 // NewRabbitMQProducer NewRabbitMQProducer 创建
 func NewRabbitMQProducer(SerialID string) (*RabbitMQProducer, error) {
-
 
 	p := new(RabbitMQProducer)
 	p.state = comm.READY
@@ -65,4 +64,3 @@ func (p *RabbitMQProducer) Init() {
 		}
 	}()
 }
-
