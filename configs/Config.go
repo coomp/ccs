@@ -12,11 +12,17 @@ var ConfPath = "../conf/config.yml"
 
 type Config struct {
 	Global Global `yaml:"Global"`
+	RpcConfig RpcConfig `yaml:"RpcConfig"`
 	// 这里补充全部的配置项
 }
 
 type Global struct{
 	Env int `yaml:"Env"`
+}
+
+type RpcConfig struct{
+	CodecType int `yaml:"CodecType"`
+	RpcTimeout int `yaml:"RpcTimeout"`
 }
 
 var (

@@ -6,6 +6,7 @@ require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
 	github.com/alecthomas/gozmq v0.0.0-20140622232202-d1b01a2df6b2 // indirect
 	github.com/golang/snappy v0.0.3 // indirect
+	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/streadway/amqp v1.0.0 // indirect

@@ -6,7 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/coomp/ccs/comm/mapstructure"
+	"github.com/coomp/ccs/configs"
 	"github.com/coomp/ccs/def"
+	"github.com/coomp/ccs/log"
+	"github.com/coomp/ccs/net"
 	"github.com/coomp/ccs/net/request"
 	"github.com/coomp/ccs/pkg/rabbitmq/comm"
 	"github.com/golang/snappy"
@@ -16,18 +20,22 @@ import (
 	"time"
 )
 
+// Codec Codec
 type Codec struct {
 	CodecType int
-	Compress  bool
+	Compress  bool // 是否压缩
 }
 
+// Client Client
 type Client struct {
 	request.Request
 	reqBody *comm.RequestWrapper
 	rspBody *comm.ResponseWrapper
+	Configs configs.Config
 	Codec
 }
 
+// New New
 func New(addr string, timeout time.Duration, codecType int, compress bool) *Client {
 	cli := &Client{
 		Request: request.Request{
@@ -45,7 +53,7 @@ func New(addr string, timeout time.Duration, codecType int, compress bool) *Clie
 	return cli
 }
 
-//Encode encode
+//Marshal Marshal
 func (codec *Client) Marshal() ([]byte, error) {
 	pkg := codec.reqBody
 	var b []byte
@@ -56,7 +64,7 @@ func (codec *Client) Marshal() ([]byte, error) {
 	case 5:
 		b, e = msgpack.Marshal(pkg)
 	default:
-		e = errors.New("hippo unsupport codec type")
+		e = errors.New(" unsupport codec type")
 	}
 	if e != nil {
 		return nil, e
@@ -78,6 +86,7 @@ func (codec *Client) Marshal() ([]byte, error) {
 	return buf, nil
 }
 
+// Check Check
 func (c *Client) Check(data []byte) (int, error) {
 
 	dataLen := len(data)
@@ -133,12 +142,13 @@ func (codec *Client) Unmarshal(b []byte) error {
 type RpcClient struct {
 	address            []string
 	preferAdapterIndex int
-	config             *config.RpcConfig
+	config             *configs.RpcConfig
 	CodecType          int
 	Compress           bool
 }
 
-func NewHippoRpcClient(c *config.RpcConfig, addrPrefix string, addr string, log *config.LogWrapper) (rpc *RpcClient) {
+// NewRpcClient 创建一个rpc客户端
+func NewRpcClient(c *configs.RpcConfig, addrPrefix string, addr string) (rpc *RpcClient) {
 
 	addrs := strings.Split(addr, ",")
 
@@ -152,54 +162,49 @@ func NewHippoRpcClient(c *config.RpcConfig, addrPrefix string, addr string, log 
 		0,
 		c,
 		c.CodecType,
-		c.Compress,
+		false,
 	}
 	return rpc
 }
 
-func (rpc *HippoRpcClient) Send(ctx context.Context, target, method, argType string, req interface{}, rsp interface{}) error {
+func (rpc *Client) Send(ctx context.Context, target, method, argType string, req interface{}, rsp interface{}) error {
 
-	rpcreq := &def.RequestWrapper{
-		Class: "com.tencent.hippo.ipc.RequestWrapper",
-		RequestData: &def.Object{Value: &def.RpcRequest{
-			Class:           "com.tencent.hippo.ipc.protocol.RpcProtocol$RpcRequest",
+	rpcreq := &comm.RequestWrapper{
+		RequestData: &comm.Object{Value: &comm.RpcRequest{
+			Class:           "ipc.protocol.RpcProtocol$RpcRequest",
 			ArgTypes:        []string{argType},
-			Args:            []def.Object{def.Object{Value: req}},
+			Args:            []comm.Object{comm.Object{Value: req}},
 			TargetInterface: target,
 			Method:          method,
 		}},
-		CodecType:    int32(rpc.config.CodecType),
+		CodecType:    int32(rpc.Configs.RpcConfig.CodecType),
 		ProtocolType: 1,
-		Timeout:      int64(rpc.config.RpcTimeout),
+		Timeout:      int64(rpc.Configs.RpcConfig.RpcTimeout),
 	}
 	var err error
 
-	for i := 0; i < len(rpc.address); i++ {
-		//轮询地址
-		index := (rpc.preferAdapterIndex + i) % len(rpc.address)
-		req := New(rpc.address[index], time.Duration(rpc.config.RpcTimeout)*time.Millisecond, rpc.CodecType, rpc.Compress)
+	for i := 0; i < len(rpc.Address); i++ {
+		// TODO 这里是不是要增加个轮询地址的功能
+		req := New(rpc.Address, time.Duration(rpc.Configs.RpcConfig.RpcTimeout)*time.Millisecond, rpc.CodecType, rpc.Compress)
 		req.reqBody = rpcreq
-		client.DoRequests(context.Background(), req)
+		net.DoRequests(context.Background(), req)
 
 		errcode := req.GetErrCode()
 
 		if errcode != 0 {
-			attr.AttrAPI(monitor.HIPPO_CLIENT_DO_REQ_FAIL, 1) //[HippoClient]doRequest失败量
-			//一个节点不可用，继续循环下个节点。否则配多个节点没有意义
-			rpc.logger.Errorf("node:%s get rsp errorcode:%v errmsg:%s\n", rpc.address[index], errcode, req.GetCommuErrMsg())
-			err = errors.New(fmt.Sprintf("node:%s get rsp errorcode:%v errmsg:%s", rpc.address[index], errcode, req.GetCommuErrMsg()))
+			log.L.Error("node:%s get rsp errorcode:%v errmsg:%s\n", rpc.Address, errcode, req.GetCommuErrMsg())
+			err = errors.New(fmt.Sprintf("node:%s get rsp errorcode:%v errmsg:%s", rpc.Address, errcode, req.GetCommuErrMsg()))
 			continue
 		}
+
 		err = nil
-		hippoRsp := req.rspBody
-		if hippoRsp.Success {
-			rpc.preferAdapterIndex = index //成功则下次还是用这个node
-			v := hippoRsp.ResponseData.Value.(*def.RpcResponse).Data.Value
+		Rsp := req.rspBody
+		if Rsp.Success {
+			v := Rsp.ResponseData.Value.(*comm.RpcResponse).Data.Value
 			deleteTypeHint(v)
 			return mapstructure.WeakDecodeJson(v, rsp)
 		} else {
-			attr.AttrAPI(monitor.HIPPO_CLIENT_RSP_FAIL, 1) //[HippoClient]返回的rsp不为success
-			err = fmt.Errorf("hippo_rsp is not success code:3322 err_msg:%s", hippoRsp.ErrorMsg)
+			err = fmt.Errorf("hippo_rsp is not success code:3322 err_msg:%s", Rsp.ErrorMsg)
 		}
 	}
 	return err
