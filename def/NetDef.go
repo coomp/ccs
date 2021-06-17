@@ -10,3 +10,10 @@ const (
 	SendAndRecvStream      = 6 // tcp stream transport
 	SendOnlyStream         = 7 // tcp流一直发
 )
+
+const (
+	// JsonType json 传输协议
+	JsonType = 1
+	// Msgpack TO msgpack 传输协议DO
+	Msgpack = 2
+)

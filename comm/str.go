@@ -2,6 +2,7 @@ package comm
 
 import "net"
 
+// Find TODO
 func Find(a []string, x string) int {
 	for i, n := range a {
 		if x == n {
@@ -10,14 +11,14 @@ func Find(a []string, x string) int {
 	}
 	return -1
 }
-// get IPv4 address of any interface (except lo), return string which is dotted decimal notation,
-// if fail returns ""
+
+// GetLocalIpString GetLocalIpString get IPv4 address of any interface (except lo), return string which is dotted decimal notation, if fail returns ""
 func GetLocalIpString() string {
 	b := GetLocalIpByte()
 	return net.IP(b).String()
 }
 
-// get IPv4 address of any interface (except lo), return []byte which is dotted decimal notation,
+// GetLocalIpByte get IPv4 address of any interface (except lo), return []byte which is dotted decimal notation,
 // if fail returns nil
 func GetLocalIpByte() []byte {
 	addrSlice, err := net.InterfaceAddrs()

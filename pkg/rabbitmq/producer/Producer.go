@@ -1,11 +1,12 @@
 package producer
 
 import (
-	"github.com/coomp/ccs/configs"
-	"github.com/coomp/ccs/pkg/rabbitmq/base"
 	"sync"
 	"time"
 
+	"git.code.oa.com/tme/hippo-go/service"
+	"github.com/coomp/ccs/configs"
+	"github.com/coomp/ccs/pkg/rabbitmq/base"
 	"github.com/coomp/ccs/pkg/rabbitmq/comm"
 	"github.com/coomp/ccs/pkg/tenant/mq/RabbitMQ"
 )
@@ -43,6 +44,7 @@ func NewRabbitMQProducer(SerialID string) (*RabbitMQProducer, error) {
 	return p, nil
 }
 
+// Init TODO
 // RabbitMQProducer 初始化
 func (p *RabbitMQProducer) Init() {
 	var addrPrefix string
@@ -51,7 +53,7 @@ func (p *RabbitMQProducer) Init() {
 	} else {
 		addrPrefix = "dns://"
 	}
-	rpcclit := clt.NewHippoRpcClient(p.producerConfig.RpcConfig, addrPrefix, p.producerConfig.Master, p.log)
+	rpcclit := clt.NewRpcClient(p.producerConfig.RpcConfig, addrPrefix, p.producerConfig.Master, p.log)
 	ms := service.NewMasterService(rpcclit)
 	p.masterService = ms
 	go p.doHeartBeat(ms)

@@ -6,18 +6,19 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/coomp/ccs/comm/mapstructure"
-	"github.com/coomp/ccs/configs"
-	"github.com/coomp/ccs/def"
-	"github.com/coomp/ccs/log"
-	"github.com/coomp/ccs/net"
-	"github.com/coomp/ccs/net/request"
-	"github.com/coomp/ccs/pkg/rabbitmq/comm"
-	"github.com/golang/snappy"
-	"github.com/vmihailenco/msgpack"
 	"io"
 	"strings"
 	"time"
+
+	"github.com/coomp/ccs/comm/mapstructure"
+	"github.com/coomp/ccs/configs"
+	"github.com/coomp/ccs/def"
+	"github.com/coomp/ccs/lib/request"
+	"github.com/coomp/ccs/log"
+	"github.com/coomp/ccs/net"
+	"github.com/coomp/ccs/pkg/rabbitmq/comm"
+	"github.com/golang/snappy"
+	"github.com/vmihailenco/msgpack"
 )
 
 // Codec Codec
@@ -53,7 +54,7 @@ func New(addr string, timeout time.Duration, codecType int, compress bool) *Clie
 	return cli
 }
 
-//Marshal Marshal
+// Marshal Marshal
 func (codec *Client) Marshal() ([]byte, error) {
 	pkg := codec.reqBody
 	var b []byte
@@ -104,7 +105,7 @@ func (c *Client) Check(data []byte) (int, error) {
 
 }
 
-//Decode decode a hippo message to simplessoparser message
+// Unmarshal Decode decode a  message to simplessoparser message
 func (codec *Client) Unmarshal(b []byte) error {
 	if len(b) < 4 {
 		return io.ErrUnexpectedEOF
@@ -123,12 +124,12 @@ func (codec *Client) Unmarshal(b []byte) error {
 		data = b[5:]
 	}
 	switch c {
-	case 4:
+	case def.JsonType:
 		res := &comm.ResponseWrapper{ResponseData: &comm.Object{Value: &comm.RpcResponse{}}}
 		e := json.Unmarshal(data, res)
 		codec.rspBody = res
 		return e
-	case 5:
+	case def.Msgpack:
 		res := &comm.ResponseWrapper{ResponseData: &comm.Object{Value: &comm.RpcResponse{}}}
 		e := msgpack.Unmarshal(data, res)
 		codec.rspBody = res
@@ -139,6 +140,7 @@ func (codec *Client) Unmarshal(b []byte) error {
 
 }
 
+// RpcClient TODO
 type RpcClient struct {
 	address            []string
 	preferAdapterIndex int
@@ -167,6 +169,7 @@ func NewRpcClient(c *configs.RpcConfig, addrPrefix string, addr string) (rpc *Rp
 	return rpc
 }
 
+// Send TODO
 func (rpc *Client) Send(ctx context.Context, target, method, argType string, req interface{}, rsp interface{}) error {
 
 	rpcreq := &comm.RequestWrapper{
@@ -204,11 +207,12 @@ func (rpc *Client) Send(ctx context.Context, target, method, argType string, req
 			deleteTypeHint(v)
 			return mapstructure.WeakDecodeJson(v, rsp)
 		} else {
-			err = fmt.Errorf("hippo_rsp is not success code:3322 err_msg:%s", Rsp.ErrorMsg)
+			err = fmt.Errorf("rsp is not success code:3322 err_msg:%s", Rsp.ErrorMsg)
 		}
 	}
 	return err
 }
+
 func deleteTypeHint(data interface{}) {
 	if d, ok := data.(map[string]interface{}); ok {
 		delete(d, "@type")
@@ -222,4 +226,3 @@ func deleteTypeHint(data interface{}) {
 		}
 	}
 }
-

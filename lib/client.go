@@ -1,11 +1,12 @@
-package net
+package lib
 
 import (
 	"context"
-	"github.com/coomp/ccs/errors"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/coomp/ccs/errors"
 )
 
 const (
@@ -34,7 +35,8 @@ type Requestor interface {
 	Marshal() ([]byte, error)
 	Check([]byte) (int, error)
 	Unmarshal([]byte) error
-	Finish(errcode int, address string, cost time.Duration) // Finish return error code, address, cost time when request finish
+	Finish(errcode int, address string,
+		cost time.Duration) // Finish return error code, address, cost time when request finish
 }
 
 func isDone(ctx context.Context) int {

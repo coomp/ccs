@@ -1,66 +1,81 @@
 package zap
+
 import (
-	Default "coomp/log/default"
-	"coomp/log/fileout"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	"os"
 	"strings"
+
+	Default "github.com/coomp/log/default"
+	"github.com/coomp/log/fileout"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
+// Log TODO
 type Log struct {
 	logger *zap.Logger
 }
 
+// Debug TODO
 func (l Log) Debug(s string, i ...interface{}) {
 	l.logger.Debug(s)
 }
 
+// Info TODO
 func (l Log) Info(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Warn TODO
 func (l Log) Warn(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Error TODO
 func (l Log) Error(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Panic TODO
 func (l Log) Panic(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Fatal TODO
 func (l Log) Fatal(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Debugf TODO
 func (l Log) Debugf(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Infof TODO
 func (l Log) Infof(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Warnf TODO
 func (l Log) Warnf(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Errorf TODO
 func (l Log) Errorf(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Panicf TODO
 func (l Log) Panicf(s string, i ...interface{}) {
 	panic("implement me")
 }
 
+// Fatalf TODO
 func (l Log) Fatalf(s string, i ...interface{}) {
 	panic("implement me")
 }
 
-//var Log *zap.Logger //全局日志
+// var Log *zap.Logger //全局日志
 
 func parseLevel(lvl string) zapcore.Level {
 	switch strings.ToLower(lvl) {
@@ -81,7 +96,8 @@ func parseLevel(lvl string) zapcore.Level {
 	}
 }
 
-//创建日志
+// New TODO
+// 创建日志
 func New(opts ...Default.Option) *Log {
 	o := &Default.Options{
 		LogPath:     Default.LogPath,
@@ -131,5 +147,6 @@ func newZapLogger(level, stacktrace zapcore.Level, output zapcore.WriteSyncer) *
 	encCfg.EncodeLevel = zapcore.LowercaseLevelEncoder
 	encoder = zapcore.NewJSONEncoder(encCfg)
 
-	return zap.New(zapcore.NewCore(encoder, output, dyn), zap.AddCaller(), zap.AddStacktrace(stacktrace), zap.AddCallerSkip(2))
+	return zap.New(zapcore.NewCore(encoder, output, dyn), zap.AddCaller(), zap.AddStacktrace(stacktrace),
+		zap.AddCallerSkip(2))
 }

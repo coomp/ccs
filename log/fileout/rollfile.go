@@ -2,20 +2,21 @@ package fileout
 
 import (
 	"bytes"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"io"
 	"os"
 	"path/filepath"
 	"time"
+
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-//日志输出接口
+// WriteSyncer  日志输出接口
 type WriteSyncer interface {
 	io.Writer
 	Sync() error
 }
 
-//创建分割日志的writer
+// NewRollingFile 创建分割日志的writer
 func NewRollingFile(path, srvname string, maxSize, MaxAge int) WriteSyncer {
 	if err := os.MkdirAll(path, 0766); err != nil {
 		panic(err)
@@ -75,10 +76,12 @@ func (l *lumberjackWriteSyncer) run() {
 	}
 }
 
+// Stop TODO
 func (l *lumberjackWriteSyncer) Stop() {
 	close(l.closeChan)
 }
 
+// Write TODO
 func (l *lumberjackWriteSyncer) Write(bs []byte) (int, error) {
 	b := make([]byte, len(bs))
 	for i, c := range bs {
@@ -88,6 +91,7 @@ func (l *lumberjackWriteSyncer) Write(bs []byte) (int, error) {
 	return 0, nil
 }
 
+// Sync TODO
 func (l *lumberjackWriteSyncer) Sync() error {
 	return nil
 }

@@ -1,13 +1,15 @@
 package tracer
+
 import (
 	"context"
 	"errors"
 	"fmt"
-	opentracing "github.com/opentracing/opentracing-go"
 	"strings"
+
+	opentracing "github.com/opentracing/opentracing-go"
 )
 
-//定义默认的
+// 定义默认的
 const (
 	DefaultTraceIdName  = "trace_id"
 	DefaultSpanIdName   = "span_id"
@@ -16,17 +18,16 @@ const (
 	DefaultSeparator = ":"
 )
 
-// 定义日志中Trace的key
+// LogTraceKey 定义日志中Trace的key
 var LogTraceKey struct{} //格式 traceid:spanid:parentid  46b1506e7332f7c1:7f75737aa70629cc:3bb947500f42ad71:1
 
-//定义错误
+// NoTracerInfo 定义错误
 var NoTracerInfo = errors.New("no trace info")
 
-
-// 解析trace中的信息
+// decodeTracer 解析trace中的信息
 func decodeTracer(ctx context.Context) ([]string, error) {
-	s := make([]string,0,4)
-	if val,ok :=ctx.Value(LogTraceKey).(string);ok {
+	s := make([]string, 0, 4)
+	if val, ok := ctx.Value(LogTraceKey).(string); ok {
 		s = strings.Split(val, DefaultSeparator)
 	} else {
 		span := opentracing.SpanFromContext(ctx)
@@ -38,9 +39,9 @@ func decodeTracer(ctx context.Context) ([]string, error) {
 	return []string{}, NoTracerInfo
 }
 
-// 定义日志中链路跟踪的信息
+// GetTraceInfo TODO 定义日志中链路跟踪的信息
 func GetTraceInfo(ctx context.Context) map[string]string {
-	s,err := decodeTracer(ctx)
+	s, err := decodeTracer(ctx)
 	trace := make(map[string]string)
 	if err != nil {
 		return trace

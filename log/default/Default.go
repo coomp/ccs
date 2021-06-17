@@ -1,21 +1,30 @@
 package Default
+
 import (
 	"fmt"
 	"strings"
 )
 
-//日志级别
+// Level TODO
+// 日志级别
 type Level int8
 
 const (
+	// DebugLevel TODO
 	DebugLevel Level = iota
+	// InfoLevel TODO
 	InfoLevel
+	// WarnLevel TODO
 	WarnLevel
+	// ErrorLevel TODO
 	ErrorLevel
+	// PanicLevel TODO
 	PanicLevel
+	// FatalLevel TODO
 	FatalLevel
 )
 
+// String TODO
 func (level Level) String() string {
 	switch level {
 	case DebugLevel:
@@ -35,6 +44,7 @@ func (level Level) String() string {
 	return "unknown"
 }
 
+// ParseLevel TODO
 func ParseLevel(lvl string) (Level, error) {
 	switch strings.ToLower(lvl) {
 	case "panic", "dpanic":
@@ -55,6 +65,7 @@ func ParseLevel(lvl string) (Level, error) {
 	return l, fmt.Errorf("not a valid logrus Level: %q", lvl)
 }
 
+// AllLevels TODO
 var AllLevels = []Level{
 	PanicLevel,
 	FatalLevel,
@@ -64,7 +75,7 @@ var AllLevels = []Level{
 	DebugLevel,
 }
 
-//默认参数
+// 默认参数
 const (
 	LogPath     string = "/var/log" //日志保存路径
 	LogName     string = "output"   //日志保存的名称，不些随机生成

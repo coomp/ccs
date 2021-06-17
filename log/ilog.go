@@ -1,6 +1,7 @@
 package log
 
-//使用string是为了减少使用Spintf
+// ILog TODO
+// 使用string是为了减少使用Spintf
 type ILog interface {
 	//new
 	//普通日志,如果有args，需要格式化

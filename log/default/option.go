@@ -1,6 +1,9 @@
 package Default
+
+// Option TODO
 type Option func(*Options)
 
+// Options TODO
 type Options struct {
 	LogPath     string //日志保存路径
 	LogName     string //日志保存的名称，不些随机生成
@@ -12,48 +15,56 @@ type Options struct {
 	ProjectName string //项目名称
 }
 
+// WithLogPath TODO
 func WithLogPath(logpath string) Option {
 	return func(o *Options) {
 		o.LogPath = logpath
 	}
 }
 
+// WithLogName TODO
 func WithLogName(logname string) Option {
 	return func(o *Options) {
 		o.LogName = logname
 	}
 }
 
+// WithLogLevel TODO
 func WithLogLevel(loglevel string) Option {
 	return func(o *Options) {
 		o.LogLevel = loglevel
 	}
 }
 
+// WithMaxSize TODO
 func WithMaxSize(maxsize int) Option {
 	return func(o *Options) {
 		o.MaxAge = maxsize
 	}
 }
 
+// WithMaxAge TODO
 func WithMaxAge(maxage int) Option {
 	return func(o *Options) {
 		o.MaxAge = maxage
 	}
 }
 
+// WithStacktrace TODO
 func WithStacktrace(stacktrace string) Option {
 	return func(o *Options) {
 		o.Stacktrace = stacktrace
 	}
 }
 
+// WithIsStdOut TODO
 func WithIsStdOut(isstdout string) Option {
 	return func(o *Options) {
 		o.IsStdOut = isstdout
 	}
 }
 
+// WithProjectName TODO
 func WithProjectName(projectname string) Option {
 	return func(o *Options) {
 		o.ProjectName = projectname

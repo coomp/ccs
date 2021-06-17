@@ -5,34 +5,57 @@ import (
 	"strconv"
 )
 
+// ErrCode 定义下code
 type ErrCode int
 
 const (
-	Succ            ErrCode = 0
-	Requesting      ErrCode = 1
-	ReqinfoInvalid  ErrCode = 2
-	AddressInvalid  ErrCode = 3
-	AddressingFail  ErrCode = 4
-	NetworkInvalid  ErrCode = 5
-	ResolveFail     ErrCode = 6
-	DialFail        ErrCode = 7
-	MarshalFail     ErrCode = 8
-	SendFail        ErrCode = 9
-	SendTimeout     ErrCode = 10
-	RecvFail        ErrCode = 11
-	RspPkgTooBig    ErrCode = 12
-	RecvTimeout     ErrCode = 13
-	CheckFail       ErrCode = 14
-	UnmarshalFail   ErrCode = 15
-	RequestPanic    ErrCode = 16
+	// Succ TODO
+	Succ ErrCode = 0
+	// Requesting TODO
+	Requesting ErrCode = 1
+	// ReqinfoInvalid TODO
+	ReqinfoInvalid ErrCode = 2
+	// AddressInvalid TODO
+	AddressInvalid ErrCode = 3
+	// AddressingFail TODO
+	AddressingFail ErrCode = 4
+	// NetworkInvalid TODO
+	NetworkInvalid ErrCode = 5
+	// ResolveFail TODO
+	ResolveFail ErrCode = 6
+	// DialFail TODO
+	DialFail ErrCode = 7
+	// MarshalFail TODO
+	MarshalFail ErrCode = 8
+	// SendFail TODO
+	SendFail ErrCode = 9
+	// SendTimeout TODO
+	SendTimeout ErrCode = 10
+	// RecvFail TODO
+	RecvFail ErrCode = 11
+	// RspPkgTooBig TODO
+	RspPkgTooBig ErrCode = 12
+	// RecvTimeout TODO
+	RecvTimeout ErrCode = 13
+	// CheckFail TODO
+	CheckFail ErrCode = 14
+	// UnmarshalFail TODO
+	UnmarshalFail ErrCode = 15
+	// RequestPanic TODO
+	RequestPanic ErrCode = 16
+	// ContextCanceled TODO
 	ContextCanceled ErrCode = 17
-	ContextTimeout  ErrCode = 18
-	Unknown         ErrCode = 19
+	// ContextTimeout TODO
+	ContextTimeout ErrCode = 18
+	// Unknown TODO
+	Unknown ErrCode = 19
+	// LuaErr TODO
 	// 生成mqclient冲突
 	LuaErr ErrCode = 110001
 	// 这里扩展错误码 并在下面对应补充中文释义
 )
 
+// String TODO
 func (ec ErrCode) String() string {
 	switch ec {
 	case Succ:
@@ -80,18 +103,22 @@ func (ec ErrCode) String() string {
 	}
 }
 
+// StringCode TODO
 func (ec ErrCode) StringCode() string {
 	return strconv.Itoa(int(ec))
 }
 
+// Int32 TODO
 func (ec ErrCode) Int32() int32 {
 	return int32(ec)
 }
 
+// Int TODO
 func (ec ErrCode) Int() int {
 	return int(ec)
 }
 
+// Error TODO
 func (ec ErrCode) Error() error {
 	if ec == Succ {
 		return nil
