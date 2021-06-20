@@ -4,8 +4,6 @@ import (
 	"sync"
 	"time"
 
-	"git.code.oa.com/tme/hippo-go/service"
-	"github.com/coomp/ccs/configs"
 	"github.com/coomp/ccs/pkg/rabbitmq/base"
 	"github.com/coomp/ccs/pkg/rabbitmq/comm"
 	"github.com/coomp/ccs/pkg/tenant/mq/RabbitMQ"
@@ -47,19 +45,11 @@ func NewRabbitMQProducer(SerialID string) (*RabbitMQProducer, error) {
 // Init TODO
 // RabbitMQProducer 初始化
 func (p *RabbitMQProducer) Init() {
-	var addrPrefix string
-	if configs.Conf.Global.Env == 0 {
-		addrPrefix = "ip://"
-	} else {
-		addrPrefix = "dns://"
-	}
-	rpcclit := clt.NewRpcClient(p.producerConfig.RpcConfig, addrPrefix, p.producerConfig.Master, p.log)
-	ms := service.NewMasterService(rpcclit)
-	p.masterService = ms
-	go p.doHeartBeat(ms)
-	go func() {
-		for _ = range p.heartbeatServiceTick.C {
-			p.doHeartBeat(ms)
-		}
-	}()
+	//var addrPrefix string
+	//if configs.Conf.Global.Env == 0 {
+	//	addrPrefix = "ip://"
+	//} else {
+	//	addrPrefix = "dns://"
+	//}
+	// 等待网络库
 }

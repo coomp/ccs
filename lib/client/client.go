@@ -1,12 +1,12 @@
-package lib
+// Package client TODO
+package client
 
 import (
 	"context"
 	"sync"
 	"sync/atomic"
-	"time"
 
-	"github.com/coomp/ccs/errors"
+	requestor "github.com/coomp/lib/Requestor"
 )
 
 const (
@@ -28,60 +28,34 @@ func NewUint64Seq() uint64 {
 	return atomic.AddUint64(&uint64seq, 1)
 }
 
-// Requestor 后端请求需要实现的接口 an interface that client uses to marshal/unmarshal, and then request
-type Requestor interface {
-	DataSourceName() string // DataSourceName cmlb://appid?timeout=300&reqtype=1&network=udp
-	Cmd() string
-	Marshal() ([]byte, error)
-	Check([]byte) (int, error)
-	Unmarshal([]byte) error
-	Finish(errcode int, address string,
-		cost time.Duration) // Finish return error code, address, cost time when request finish
-}
-
-func isDone(ctx context.Context) int {
-	select {
-	case <-ctx.Done():
-		if ctx.Err() == context.Canceled {
-			return errors.ContextCanceled.Int()
-		}
-		if ctx.Err() == context.DeadlineExceeded {
-			return errors.ContextTimeout.Int()
-		}
-		return 0
-	default:
-	}
-	return 0
-}
-
 // DoRequests 多并发请求
-func DoRequests(ctx context.Context, reqs ...Requestor) {
-	done := isDone(ctx)
+func DoRequests(ctx context.Context, reqs ...requestor.Requestor) {
+	done := requestor.IsDone(ctx)
 
 	if len(reqs) == 1 {
 		req := reqs[0]
 		if done > 0 {
-			finish(ctx, req, done, "", 0)
+			requestor.Finish(req, done, "", 0)
 			return
 		}
-
+		// 这里要考虑下DataSourceName的设计
 		reqInfo := NewReqInfoFromDSN(req.DataSourceName())
 		c, f := context.WithTimeout(ctx, reqInfo.Timeout)
-		doRequest(c, req, reqInfo)
+		requestor.DoRequest(c, req, reqInfo)
 		f()
 	} else {
 		var wg sync.WaitGroup
 		for _, req := range reqs {
 			if done > 0 {
-				finish(ctx, req, done, "", 0)
+				requestor.Finish(req, done, "", 0)
 				return
 			}
 
 			wg.Add(1)
 			reqInfo := NewReqInfoFromDSN(req.DataSourceName())
 			subCtx, cancel := context.WithTimeout(ctx, reqInfo.Timeout)
-			go func(r Requestor, c context.Context, f context.CancelFunc, info *ReqInfo) {
-				doRequest(c, r, info)
+			go func(r requestor, c context.Context, f context.CancelFunc, info *ReqInfo) {
+				requestor.DoRequest(c, r, info)
 				f()
 				wg.Done()
 			}(req, subCtx, cancel, reqInfo)

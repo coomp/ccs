@@ -2,8 +2,6 @@ module github.com/coomp
 
 go 1.13
 
-replace github.com/coomp/ccs/ => ./
-
 require (
 	github.com/coomp/ccs v0.0.0-20210615165601-106e8b55bc37
 	github.com/golang/snappy v0.0.3

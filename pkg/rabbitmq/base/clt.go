@@ -13,10 +13,10 @@ import (
 	"github.com/coomp/ccs/comm/mapstructure"
 	"github.com/coomp/ccs/configs"
 	"github.com/coomp/ccs/def"
-	"github.com/coomp/ccs/lib/request"
 	"github.com/coomp/ccs/log"
-	"github.com/coomp/ccs/net"
 	"github.com/coomp/ccs/pkg/rabbitmq/comm"
+	clt "github.com/coomp/lib/Client"
+	"github.com/coomp/lib/request"
 	"github.com/golang/snappy"
 	"github.com/vmihailenco/msgpack"
 )
@@ -54,7 +54,7 @@ func New(addr string, timeout time.Duration, codecType int, compress bool) *Clie
 	return cli
 }
 
-// Marshal Marshal
+// Marshal TODO
 func (codec *Client) Marshal() ([]byte, error) {
 	pkg := codec.reqBody
 	var b []byte
@@ -89,20 +89,29 @@ func (codec *Client) Marshal() ([]byte, error) {
 
 // Check Check
 func (c *Client) Check(data []byte) (int, error) {
-
 	dataLen := len(data)
 	if dataLen < 4 {
 		return 0, nil
 	}
-
 	totalLen := binary.BigEndian.Uint32(data)
 
 	if dataLen < int(totalLen)+4 {
 		return 0, nil
 	}
-
 	return int(totalLen) + 4, nil
 
+}
+
+// Finish 上报,这里补充下prometheus explore
+func (c *Client) Finish(errcode int, address string, cost time.Duration) error {
+	fmt.Sprintf("errcode:%d_address:%s_cost:%d", errcode, address, cost)
+	return nil
+}
+
+// GetInfoFromDataSourceName 拆解下DataSourceName 字段得出
+func (c *Client) GetInfoFromDataSourceName(errcode int, address string, cost time.Duration) error {
+	fmt.Sprintf("errcode:%d_address:%s_cost:%d", errcode, address, cost)
+	return nil
 }
 
 // Unmarshal Decode decode a  message to simplessoparser message
@@ -151,9 +160,7 @@ type RpcClient struct {
 
 // NewRpcClient 创建一个rpc客户端
 func NewRpcClient(c *configs.RpcConfig, addrPrefix string, addr string) (rpc *RpcClient) {
-
 	addrs := strings.Split(addr, ",")
-
 	addresses := []string{}
 	for _, v := range addrs {
 		address := addrPrefix + v
@@ -190,10 +197,8 @@ func (rpc *Client) Send(ctx context.Context, target, method, argType string, req
 		// TODO 这里是不是要增加个轮询地址的功能
 		req := New(rpc.Address, time.Duration(rpc.Configs.RpcConfig.RpcTimeout)*time.Millisecond, rpc.CodecType, rpc.Compress)
 		req.reqBody = rpcreq
-		net.DoRequests(context.Background(), req)
-
+		clt.DoRequests(context.Background(), req)
 		errcode := req.GetErrCode()
-
 		if errcode != 0 {
 			log.L.Error("node:%s get rsp errorcode:%v errmsg:%s\n", rpc.Address, errcode, req.GetCommuErrMsg())
 			err = errors.New(fmt.Sprintf("node:%s get rsp errorcode:%v errmsg:%s", rpc.Address, errcode, req.GetCommuErrMsg()))

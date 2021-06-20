@@ -1,6 +1,9 @@
 package comm
 
-import "net"
+import (
+	"net"
+	"time"
+)
 
 // Find TODO
 func Find(a []string, x string) int {
@@ -33,4 +36,9 @@ func GetLocalIpByte() []byte {
 		}
 	}
 	return nil
+}
+
+// Timediffer TODO
+func Timediffer(start time.Time) float64 {
+	return time.Now().Sub(start).Seconds()
 }

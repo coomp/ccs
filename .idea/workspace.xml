@@ -17,23 +17,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
+      <change afterPath="$PROJECT_DIR$/lib/client/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/requestor/Requestor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/comm/str.go" beforeDir="false" afterPath="$PROJECT_DIR$/comm/str.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/def/Net.go" beforeDir="false" afterPath="$PROJECT_DIR$/def/NetDef.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/errors/Err.go" beforeDir="false" afterPath="$PROJECT_DIR$/errors/Err.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/default/Default.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/default/Default.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/default/option.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/default/option.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/fileout/rollfile.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/fileout/rollfile.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/ilog.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/ilog.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/logp.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/logp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/tracer/Tracer.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/tracer/Tracer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/zap/Zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/zap/Zap.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/request/Request.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/request/Request.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/client/client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/tenant/cache/Cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/tenant/cache/Cache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/tenant/mq/RabbitMQ/Cluster.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +53,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/lib/client.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/client/client.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/request/Request.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/comm/str.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/configs/Config.go" root0="FORCE_HIGHLIGHTING" />
@@ -91,11 +87,11 @@
       <recent name="E:\ccs\pkg\pulsar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/Client" />
       <recent name="E:\ccs\pkg\rabbitmq\base" />
       <recent name="E:\ccs\pkg\tenant\mq\RabbitMQ" />
       <recent name="E:\ccs\pkg\rabbitmq\comm" />
       <recent name="E:\ccs\pkg\tenant\mq" />
-      <recent name="E:\ccs\log" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build main.go (1)">

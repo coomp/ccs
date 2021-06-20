@@ -2,10 +2,11 @@ package UniqueID
 
 import (
 	"fmt"
-	"github.com/coomp/ccs/log"
-	"github.com/xuyu/goredis"
 	"io/ioutil"
 	"sync"
+
+	"github.com/coomp/ccs/log"
+	"github.com/xuyu/goredis"
 )
 
 var luaScript_order string
@@ -39,7 +40,7 @@ func Getflowing(flowingId string) int64 {
 	if final, rerr := r.IntegerValue(); rerr != nil {
 		log.L.Error("Eval redis IntegerValue err:%s", err.Error())
 		return -1
-	}else{
+	} else {
 		return final
 	}
 }

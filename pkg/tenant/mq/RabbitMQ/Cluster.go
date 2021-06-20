@@ -1,13 +1,10 @@
 package RabbitMQ
 
-<<<<<<< HEAD
 import (
-	"coomp/log"
 	"time"
+
+	"github.com/coomp/ccs/log"
 )
-=======
-import "github.com/coomp/ccs/log"
->>>>>>> 7a1f72bd0d33f35d2c3cc14d4c55a17704ce90f3
 
 // GetMQExchange 获取交换机的地址
 func GetMQExchange(Serial string) string {
@@ -23,7 +20,7 @@ func GetMQTopic(Serial string) []string {
 	return []string{"Test_Rmq_topic"}
 }
 
-// GetHeartbeatPeriod
+// GetHeartbeatPeriod TODO
 func GetHeartbeatPeriod(Serial string) time.Duration {
 	// 这里应该是走配置下发到中控的缓存,当请求来的时候,通过唯一的标识来获取topic
 	log.L.Debug("get a RabbitMQ GetHeartbeatPeriod SerialId:%s", Serial)

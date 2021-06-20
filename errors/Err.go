@@ -52,7 +52,18 @@ const (
 	// LuaErr TODO
 	// 生成mqclient冲突
 	LuaErr ErrCode = 110001
-	// 这里扩展错误码 并在下面对应补充中文释义
+	// ErrRequestPanic panic
+	ErrRequestPanic ErrCode = 110002
+	// ErrAddressingFail ip错误
+	ErrAddressingFail ErrCode = 110003
+	// ErrNetworkInvalid 网络非法
+	ErrNetworkInvalid ErrCode = 110004
+	// ErrRecvFail TODO
+	ErrRecvFail ErrCode = 110005
+	// ErrDialConnFail TODO
+	ErrDialConnFail ErrCode = 110006
+	// ErrRecvTimeout TODO
+	ErrRecvTimeout ErrCode = 110007
 )
 
 // String TODO
