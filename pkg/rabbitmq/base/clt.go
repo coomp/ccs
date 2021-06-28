@@ -177,13 +177,12 @@ func NewRpcClient(c *configs.RpcConfig, addrPrefix string, addr string) (rpc *Rp
 }
 
 // Send TODO
-func (rpc *Client) Send(ctx context.Context, target, method, argType string, req interface{}, rsp interface{}) error {
-
+func (rpc *Client) Send(target, method, argType string, req interface{}, rsp interface{}) error {
 	rpcreq := &comm.RequestWrapper{
 		RequestData: &comm.Object{Value: &comm.RpcRequest{
 			Class:           "ipc.protocol.RpcProtocol$RpcRequest",
 			ArgTypes:        []string{argType},
-			Args:            []comm.Object{comm.Object{Value: req}},
+			Args:            []comm.Object{"Value: req"},
 			TargetInterface: target,
 			Method:          method,
 		}},

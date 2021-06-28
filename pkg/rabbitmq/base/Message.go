@@ -21,27 +21,27 @@ func (m *Message) SetContentEncoding(e string) {
 	m.contentEncoding = e
 }
 
-// SetContentType 设置 消息的唯一性标识
+// SetMessageId 设置 消息的唯一性标识
 func (m *Message) SetMessageId(messageId string) {
 	m.messageId = messageId
 }
 
-// SetContentType 设置 消息体的MIME类型
+// SetTimestamp 设置 消息体的MIME类型
 func (m *Message) SetTimestamp(t int64) {
 	m.timestamp = t
 }
 
-// SetContentType 设置 消息的持久化类型
+// SetDeliveryMode  设置 消息的持久化类型
 func (m *Message) SetDeliveryMode(d int) {
 	m.deliveryMode = d
 }
 
-// SetContentType 设置 用户自定义任意的键和值
+// SetHeaders 设置 用户自定义任意的键和值
 func (m *Message) SetHeaders(h map[string]string) {
 	m.headers = h
 }
 
-// SetContentType 设置 用户自定义任意的键和值
+// SetPriority 设置 用户自定义任意的键和值
 func (m *Message) SetPriority(p int) {
 	m.priority = p
 }

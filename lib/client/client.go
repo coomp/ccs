@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	maxRspDataLen              = 65536 // 64k
-	retryTimesWhenUDPCheckFail = 1     // udp验包失败的重试次数，防止串包,野包
+	maxRspDataLen = 65536 // 64k
+	// retryTimesWhenUDPCheckFail = 1     // udp验包失败的重试次数，防止串包,野包  暂时不用
 )
 
 var uint64seq uint64 = 1

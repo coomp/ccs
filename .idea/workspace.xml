@@ -17,10 +17,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
-      <change afterPath="$PROJECT_DIR$/lib/pool/ConnPoll.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pool/README.MD" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/def/NetDef.go" beforeDir="false" afterPath="$PROJECT_DIR$/def/NetDef.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/Config.go" beforeDir="false" afterPath="$PROJECT_DIR$/configs/Config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pool/ConnPoll.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pool/pools.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pool/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pool/README.MD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/requestor/Requestor.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/requestor/Requestor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/base/Message.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/Message.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

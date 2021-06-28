@@ -2,31 +2,38 @@ package configs
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"sync"
+
+	"gopkg.in/yaml.v2"
 )
 
 // ConfPath 默认配置文件地址，可修改
 var ConfPath = "../conf/config.yml"
 
+// Config TODO
 type Config struct {
-	Global Global `yaml:"Global"`
+	Global    Global    `yaml:"Global"`
 	RpcConfig RpcConfig `yaml:"RpcConfig"`
 	// 这里补充全部的配置项
 }
 
-type Global struct{
+// Global TODO
+type Global struct {
 	Env int `yaml:"Env"`
 }
 
-type RpcConfig struct{
-	CodecType int `yaml:"CodecType"`
-	RpcTimeout int `yaml:"RpcTimeout"`
+// RpcConfig TODO
+type RpcConfig struct {
+	CodecType  int    `yaml:"CodecType"`
+	RpcTimeout int    `yaml:"RpcTimeout"`
+	NetType    string `yaml:"NetType"`
+	Key        string `yaml:"Key"`
 }
 
 var (
 	once sync.Once
+	// Conf TODO
 	Conf = &Config{}
 )
 
@@ -36,6 +43,6 @@ func init() {
 		if err != nil {
 			fmt.Print(err)
 		}
-		yaml.Unmarshal(config,&Conf)
+		yaml.Unmarshal(config, &Conf)
 	})
 }

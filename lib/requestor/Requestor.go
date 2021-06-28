@@ -6,10 +6,10 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/coomp/ccs/def"
 	"github.com/coomp/ccs/log"
 	"github.com/coomp/comm"
 	"github.com/coomp/errors"
+	"github.com/coomp/lib/pool"
 )
 
 // Requestor 后端请求需要实现的接口 an interface that client uses to marshal/unmarshal, and then request
@@ -56,6 +56,8 @@ func IsDone(ctx context.Context) int {
 // doNetworkRequest
 func doNetworkRequest(ctx context.Context, r Requestor, arr string, reqInfo *ReqInfo) int {
 	// 网络库
+	reqInfo.Address
+	pool.GetTCPConnectionPool()
 	return 0
 }
 
@@ -93,10 +95,6 @@ func DoRequest(ctx context.Context, r Requestor, reqInfo *ReqInfo) {
 		return
 	}
 	Finish(r, ec, addr, time.Duration(comm.Timediffer(s)))
-
-	if reqInfo.ReqType == def.SendAndRecvIgnoreError {
-		ec = errors.Succ.Int()
-	}
 
 	if ec == errors.ErrDialConnFail.Int() || ec == errors.ErrRecvTimeout.Int() || ec == errors.ErrRecvFail.Int() {
 		log.L.Error("DoRequest [%d,%s]", ec, errors.ErrCode(ec).String())
