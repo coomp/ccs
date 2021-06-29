@@ -13,10 +13,10 @@ import (
 	"github.com/coomp/ccs/comm/mapstructure"
 	"github.com/coomp/ccs/configs"
 	"github.com/coomp/ccs/def"
+	"github.com/coomp/ccs/lib/request"
 	"github.com/coomp/ccs/log"
 	"github.com/coomp/ccs/pkg/rabbitmq/comm"
-	clt "github.com/coomp/lib/Client"
-	"github.com/coomp/lib/request"
+	clt "github.com/coomp/css/lib/Client"
 	"github.com/golang/snappy"
 	"github.com/vmihailenco/msgpack"
 )
