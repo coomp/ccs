@@ -1,4 +1,3 @@
-// Package Requestor TODO
 package requestor
 
 import (
@@ -6,16 +5,16 @@ import (
 	"runtime"
 	"time"
 
+	"github.com/coomp/ccs/comm"
+	"github.com/coomp/ccs/errors"
+	"github.com/coomp/ccs/lib/pool"
 	"github.com/coomp/ccs/log"
-	"github.com/coomp/comm"
-	"github.com/coomp/errors"
-	"github.com/coomp/lib/pool"
 )
 
 // Requestor 后端请求需要实现的接口 an interface that client uses to marshal/unmarshal, and then request
 type Requestor interface {
 	GetInfoFromDataSourceName(
-		req Requestor) *ReqInfo // DataSourceName //tenant2appid?timeout=300&reqtype=1&network=tcp(tcp/zmq)
+		errcode int, address string, cost time.Duration) *ReqInfo // DataSourceName //tenant2appid?timeout=300&reqtype=1&network=tcp(tcp/zmq)
 	Marshal() ([]byte, error)
 	Check([]byte) (int, error)
 	Unmarshal([]byte) error

@@ -18,7 +18,9 @@
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/requestor/Requestor.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/requestor/Requestor.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,9 +54,19 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/lib/client/client.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/main.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/request/Request.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/comm/str.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/requestor/Requestor.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/configs/Config.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/go.sum" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/go.mod" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pkg/redis/UniqueID/flowing.lua" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pkg/rabbitmq/base/queue.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pkg/rabbitmq/base/Message.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pkg/rabbitmq/base/Exchange.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/log/default/Default.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/log/zap/Zap.go" root0="FORCE_HIGHLIGHTING" />
   </component>
