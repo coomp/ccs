@@ -124,11 +124,13 @@ func (c *Client) Check(data []byte) (int, error) {
 // Finish 上报,这里补充下prometheus explore
 func (c *Client) Finish(errcode int, address string, cost time.Duration) {
 	fmt.Sprintf("errcode:%d_address:%s_cost:%d", errcode, address, cost)
-	return nil
+	return
 }
 
 // GetInfoFromDataSourceName 拆解下DataSourceName 字段得出
 func (c *Client) GetInfoFromDataSourceName(errcode int, address string, cost time.Duration) *requestor.ReqInfo {
+	// 明确的是,我们这边需要什么
+	// 首先是ip/端口需要从这里拿,其次是网络协议tcp/udp/zmq之类的,再其次超时时间,另外appid,后面用作最终的限流
 	fmt.Sprintf("errcode:%d_address:%s_cost:%d", errcode, address, cost)
 	return nil
 }

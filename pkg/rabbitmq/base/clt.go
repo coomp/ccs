@@ -14,7 +14,7 @@ import (
 	"github.com/coomp/ccs/pkg/rabbitmq/comm"
 )
 
-// RpcClient TODO
+// RpcClient rabbitmq的客户端
 type RpcClient struct {
 	appid              string             // 期望租户分配的appid
 	preferAdapterIndex string             // 期望的连接方式
@@ -28,7 +28,7 @@ type RpcClient struct {
 func NewRabbitmqRpcClient(c *configs.RpcConfig, appid string) (rpc *RpcClient) {
 	//  这里可以通过租户给,也可以通过配置给
 	// 租户给 TODO
-	// 配置给
+	// 暂时配置给
 	addrs := strings.Split(c.Address, ",")
 	addresses := []string{}
 	for _, v := range addrs {
@@ -45,7 +45,7 @@ func NewRabbitmqRpcClient(c *configs.RpcConfig, appid string) (rpc *RpcClient) {
 	return rpc
 }
 
-// Send TODO
+// Send 发送消息
 func (rpc *RpcClient) Send(target, method, argType string, req interface{}, rsp interface{}) error {
 	rpcreq := &comm.RequestWrapper{
 		RequestData: &comm.Object{Value: &comm.RpcRequest{
@@ -60,10 +60,9 @@ func (rpc *RpcClient) Send(target, method, argType string, req interface{}, rsp 
 		Timeout:      int64(rpc.Config.RpcTimeout),
 	}
 	var err error
-	//
 
 	// for i := 0; i < len(rpc.address); i++ {
-	// TODO 这里是不是要增加个轮询地址的功能
+	// TODO 这里需要要增加个轮询地址的功能
 	add := ""
 	if len(rpc.address) > 0 {
 		add = rpc.address[0]
@@ -76,10 +75,9 @@ func (rpc *RpcClient) Send(target, method, argType string, req interface{}, rsp 
 	if errcode != 0 {
 		log.L.Error("get rsp errorcode:%v errmsg:%s\n", errcode, cReq.GetCommuErrMsg())
 		err = errors.New(fmt.Sprintf(" get rsp errorcode:%v errmsg:%s", errcode, cReq.GetCommuErrMsg()))
-		continue
+		return fmt.Errorf("get_client_err:%d", errcode)
 	}
 
-	err = nil
 	Rsp := cReq.RspBody
 	if Rsp.Success {
 		v := Rsp.ResponseData.Value.(*comm.RpcResponse).Data.Value
