@@ -29,6 +29,7 @@ type RpcConfig struct {
 	RpcTimeout int    `yaml:"RpcTimeout"`
 	NetType    string `yaml:"NetType"`
 	Key        string `yaml:"Key"`
+	Address    string `yaml:"address"`
 }
 
 var (

@@ -16,27 +16,31 @@ import (
 
 // RpcClient TODO
 type RpcClient struct {
-	address            []string
-	preferAdapterIndex int
-	Config             *configs.RpcConfig
+	appid              string             // 期望租户分配的appid
+	preferAdapterIndex string             // 期望的连接方式
+	Config             *configs.RpcConfig // 也可以通过配置的方式走
 	CodecType          int
 	Compress           bool
+	address            []string // 租户分来的
 }
 
 // NewRabbitmqRpcClient 创建一个Rabbitmqrpc客户端,底层使用client去访问
-func NewRabbitmqRpcClient(c *configs.RpcConfig, addrPrefix string, addr string) (rpc *RpcClient) {
-	addrs := strings.Split(addr, ",")
+func NewRabbitmqRpcClient(c *configs.RpcConfig, appid string) (rpc *RpcClient) {
+	//  这里可以通过租户给,也可以通过配置给
+	// 租户给 TODO
+	// 配置给
+	addrs := strings.Split(c.Address, ",")
 	addresses := []string{}
 	for _, v := range addrs {
-		address := addrPrefix + v
-		addresses = append(addresses, address)
+		addresses = append(addresses, v)
 	}
 	rpc = &RpcClient{
-		addresses,
-		0,
+		appid,
+		"tcp",
 		c,
 		c.CodecType,
 		false,
+		addresses,
 	}
 	return rpc
 }
@@ -47,7 +51,7 @@ func (rpc *RpcClient) Send(target, method, argType string, req interface{}, rsp 
 		RequestData: &comm.Object{Value: &comm.RpcRequest{
 			Class:           "ipc.protocol.RpcProtocol$RpcRequest",
 			ArgTypes:        []string{argType},
-			Args:            []comm.Object{"Value: req"},
+			Args:            []comm.Object{comm.Object{Value: req}},
 			TargetInterface: target,
 			Method:          method,
 		}},
@@ -56,29 +60,35 @@ func (rpc *RpcClient) Send(target, method, argType string, req interface{}, rsp 
 		Timeout:      int64(rpc.Config.RpcTimeout),
 	}
 	var err error
+	//
 
-	for i := 0; i < len(rpc.Address); i++ {
-		// TODO 这里是不是要增加个轮询地址的功能
-		req := client.New(rpc.Address, time.Duration(rpc.Config.RpcTimeout)*time.Millisecond, rpc.CodecType, rpc.Compress)
-		req.ReqBody = rpcreq
-		req.DoRequests(context.Background(), req)
-		errcode := req.GetErrCode()
-		if errcode != 0 {
-			log.L.Error("get rsp errorcode:%v errmsg:%s\n", errcode, req.GetCommuErrMsg())
-			err = errors.New(fmt.Sprintf(" get rsp errorcode:%v errmsg:%s", errcode, req.GetCommuErrMsg()))
-			continue
-		}
-
-		err = nil
-		Rsp := req.RspBody
-		if Rsp.Success {
-			v := Rsp.ResponseData.Value.(*comm.RpcResponse).Data.Value
-			deleteTypeHint(v)
-			return mapstructure.WeakDecodeJson(v, rsp)
-		} else {
-			err = fmt.Errorf("rsp is not success code:3322 err_msg:%s", Rsp.ErrorMsg)
-		}
+	// for i := 0; i < len(rpc.address); i++ {
+	// TODO 这里是不是要增加个轮询地址的功能
+	add := ""
+	if len(rpc.address) > 0 {
+		add = rpc.address[0]
 	}
+
+	cReq := client.New(add, time.Duration(rpc.Config.RpcTimeout)*time.Millisecond, rpc.CodecType, rpc.Compress)
+	cReq.ReqBody = rpcreq
+	cReq.DoRequests(context.Background(), req)
+	errcode := cReq.GetErrCode()
+	if errcode != 0 {
+		log.L.Error("get rsp errorcode:%v errmsg:%s\n", errcode, cReq.GetCommuErrMsg())
+		err = errors.New(fmt.Sprintf(" get rsp errorcode:%v errmsg:%s", errcode, cReq.GetCommuErrMsg()))
+		continue
+	}
+
+	err = nil
+	Rsp := cReq.RspBody
+	if Rsp.Success {
+		v := Rsp.ResponseData.Value.(*comm.RpcResponse).Data.Value
+		deleteTypeHint(v)
+		return mapstructure.WeakDecodeJson(v, rsp)
+	} else {
+		err = fmt.Errorf("rsp is not success code:3322 err_msg:%s", Rsp.ErrorMsg)
+	}
+	//}
 	return err
 }
 

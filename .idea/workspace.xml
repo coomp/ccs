@@ -18,9 +18,7 @@
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/client/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/requestor/Requestor.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/requestor/Requestor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/Config.go" beforeDir="false" afterPath="$PROJECT_DIR$/configs/Config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
