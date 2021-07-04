@@ -49,7 +49,7 @@ type idleList struct {
 
 // 连接的双向链表结构体
 type poolConn struct {
-	c          net.Conn
+	C          net.Conn
 	heartbeat  time.Time
 	created    time.Time
 	next, prev *poolConn
@@ -140,7 +140,7 @@ func (p *Pool) RegisterChecker(interval time.Duration, check func(interface{}) b
 					if p.IdleTimeout > 0 && time.Now().Sub(pc.heartbeat) > p.IdleTimeout {
 						// 超时了就应该干掉
 						if p.Idle.count > 1 {
-							pc.c.Close()
+							pc.C.Close()
 							// 后节点的前指针指向当前节点的前节点
 							pc.next.prev = pc.prev
 							// 前节点的后指针指向当前节点的后节点
@@ -149,7 +149,7 @@ func (p *Pool) RegisterChecker(interval time.Duration, check func(interface{}) b
 							//p.Active--     // 活跃的链接数-1
 						} else {
 							// 此时一定是1，释放该节点 原地切换所以不用加减  因为是++操作，不会无限循环这里
-							pc.c.Close()     // 唯一的一个关闭掉
+							pc.C.Close()     // 唯一的一个关闭掉
 							p.Idle.popBack() // 从双向链表中去掉
 							// 创建一个新节点
 							v, err := p.create() // 创建一个新的
@@ -164,7 +164,7 @@ func (p *Pool) RegisterChecker(interval time.Duration, check func(interface{}) b
 						// 这里进行清理,只保留最小连接数 说明都在超时范围内
 						if p.MaxActive < p.Idle.count {
 							// 需要删减
-							pc.c.Close()
+							pc.C.Close()
 							// 后节点的前指针指向当前节点的前节点
 							pc.next.prev = pc.prev
 							// 前节点的后指针指向当前节点的后节点
@@ -176,7 +176,7 @@ func (p *Pool) RegisterChecker(interval time.Duration, check func(interface{}) b
 					// 上面超时时间没有问题的话，就要看下是否网络上仍然是ok的
 					if !check(pc) {
 						if p.Idle.count > 1 {
-							pc.c.Close()
+							pc.C.Close()
 							// 后节点的前指针指向当前节点的前节点
 							pc.next.prev = pc.prev
 							// 前节点的后指针指向当前节点的后节点
@@ -184,7 +184,7 @@ func (p *Pool) RegisterChecker(interval time.Duration, check func(interface{}) b
 							p.Idle.count-- // 存在的连接数-1
 						} else {
 							// 此时一定是1，释放该节点 原地切换所以不用加减  因为是++操作，不会无限循环这里
-							pc.c.Close()     // 唯一的一个关闭掉
+							pc.C.Close()     // 唯一的一个关闭掉
 							p.Idle.popBack() // 从双向链表中去掉
 							// 创建一个新节点
 							v, err := p.create() // 创建一个新的
@@ -210,7 +210,7 @@ func (p *Pool) create() (idleList, error) {
 		return idleList{}, err
 	}
 	e := &poolConn{
-		c:         conn,
+		C:         conn,
 		heartbeat: time.Now(),
 		created:   time.Now(),
 	}

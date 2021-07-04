@@ -25,11 +25,8 @@ type Global struct {
 
 // RpcConfig TODO
 type RpcConfig struct {
-	CodecType  int    `yaml:"CodecType"`
-	RpcTimeout int    `yaml:"RpcTimeout"`
-	NetType    string `yaml:"NetType"`
-	Key        string `yaml:"Key"`
-	Address    string `yaml:"address"`
+	//appid?timeout=300&reqtype=1&network=udp&address="xxx"
+	DataSourceName string `yaml:"dataSourceName"`
 }
 
 var (

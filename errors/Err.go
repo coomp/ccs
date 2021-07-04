@@ -64,6 +64,10 @@ const (
 	ErrDialConnFail ErrCode = 110006
 	// ErrRecvTimeout TODO
 	ErrRecvTimeout ErrCode = 110007
+	// ErrRspDataTooLarge TODO
+	ErrRspDataTooLarge ErrCode = 110008
+	// ErrCheckFail TODO
+	ErrCheckFail ErrCode = 110009
 )
 
 // String TODO
@@ -109,6 +113,10 @@ func (ec ErrCode) String() string {
 		return "ContextTimeout"
 	case Unknown:
 		return "未知错误"
+	case ErrRspDataTooLarge:
+		return "数据太大"
+	case ErrCheckFail:
+		return "数据包检查失败"
 	default:
 		return "未知错误"
 	}
