@@ -31,9 +31,7 @@ type eKey struct {
 	src string
 }
 
-// FSM is the state machine that holds the current state.
-//
-// It has to be created with NewFSM to function properly.
+// FSM TODO
 type FSM struct {
 	// 当前的状态
 	current string
@@ -41,7 +39,7 @@ type FSM struct {
 	// transitions 当前状态 + 事件 = 新状态  State(S) + Event(E) => State(S')
 	transitions map[eKey]string
 
-	// callbacks 当前状态/当前事件 => 需要回调的方法
+	// callbacks 当前状态/当前事件（事件前/事件后/事件中） => 需要回调的方法
 	callbacks map[cKey]Callback
 
 	//--------------------------------//
@@ -89,29 +87,28 @@ type Callbacks map[string]Callback
 // NewFSM TODO
 func NewFSM(initial string, events []EventDesc, callbacks map[string]Callback) *FSM {
 	f := &FSM{
-		current:     initial,                      // 当前状态
-		transitions: make(map[eKey]string),        // 事件映射=>state
-		callbacks:   make(map[cKey]Callback),      // 事件回调映射
-		metadata:    make(map[string]interface{}), // 参数
+		transitionerObj: &transitionerStruct{},
+		current:         initial,                      // 当前状态
+		transitions:     make(map[eKey]string),        // 事件映射=>state
+		callbacks:       make(map[cKey]Callback),      // 事件回调映射 分为时间前/事件内/事件后
+		metadata:        make(map[string]interface{}), // 参数
 	}
 
 	// Build transition map and store sets of all events and states.
-	allEvents := make(map[string]bool)
-	allStates := make(map[string]bool)
+	allEvents := make(map[string]bool) // 事件集合
+	allStates := make(map[string]bool) // 状态集合
 	for _, e := range events {
 		for _, src := range e.Src {
-			f.transitions[eKey{e.Name, src}] = e.Dst
+			f.transitions[eKey{e.Name, src}] = e.Dst //transitions 当前状态 + 事件 = 新状态
 			allStates[src] = true
 			allStates[e.Dst] = true
 		}
 		allEvents[e.Name] = true
 	}
-
 	// Map all callbacks to events/states.
 	for name, fn := range callbacks {
 		var target string
 		var callbackType int
-
 		switch {
 		case strings.HasPrefix(name, "before_"):
 			target = strings.TrimPrefix(name, "before_")
@@ -157,6 +154,7 @@ func NewFSM(initial string, events []EventDesc, callbacks map[string]Callback) *
 		if callbackType != callbackNone {
 			f.callbacks[cKey{target, callbackType}] = fn
 		}
+		fmt.Printf("name:%s callbackType:%d \n", name, callbackType)
 	}
 
 	return f
@@ -171,6 +169,7 @@ func (f *FSM) afterEventCallbacks(e *Event) {
 	if fn, ok := f.callbacks[cKey{"", callbackAfterEvent}]; ok {
 		fn(e)
 	}
+
 }
 
 // Current returns the current state of the FSM.
@@ -266,15 +265,16 @@ func (f *FSM) Event(event string, args ...interface{}) error {
 	if f.transition != nil {
 		return fmt.Errorf("InvalidEventError")
 	}
-
+	//fmt.Printf("----- transitions:%#v", f.transitions)
+	// State(S) + Event(E) =>State(S`) 通过一个初始拿到dst
 	dst, ok := f.transitions[eKey{event, f.current}]
 	if !ok {
 		for ekey := range f.transitions {
 			if ekey.event == event {
-				return fmt.Errorf("InvalidEventError")
+				return fmt.Errorf("Event And State find a result ,but there is unkowErr")
 			}
 		}
-		return fmt.Errorf("unknowEven_err")
+		return fmt.Errorf("Can not find Event to change sourceState")
 	}
 
 	e := &Event{f, event, f.current, dst, nil, args, false, false}
@@ -286,7 +286,7 @@ func (f *FSM) Event(event string, args ...interface{}) error {
 
 	if f.current == dst {
 		f.afterEventCallbacks(e)
-		return fmt.Errorf("afterEventCallbacks_%s", e.Err.Error())
+		return fmt.Errorf("afterEventCallbacks")
 	}
 
 	// Setup the transition, call it later.
@@ -327,6 +327,23 @@ func (f *FSM) Transition() error {
 // doTransition wraps transitioner.transition.
 func (f *FSM) doTransition() error {
 	return f.transitionerObj.transition(f)
+}
+
+// transitionerStruct is the default implementation of the transitioner
+// interface. Other implementations can be swapped in for testing.
+type transitionerStruct struct{}
+
+// Transition completes an asynchrounous state change.
+//
+// The callback for leave_<STATE> must prviously have called Async on its
+// event to have initiated an asynchronous state transition.
+func (t transitionerStruct) transition(f *FSM) error {
+	if f.transition == nil {
+		return fmt.Errorf("transition_nil")
+	}
+	f.transition()
+	f.transition = nil
+	return nil
 }
 
 // enterStateCallbacks calls the enter_ callbacks, first the named then the

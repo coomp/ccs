@@ -28,23 +28,3 @@ func (p *Turnstile) OnEnter(toState string, args []interface{}) error {
 func (p *Turnstile) OnExit(fromState string, args []interface{}) {
 
 }
-
-// OnActionFailure 执行动作失败
-func (p *Turnstile) OnActionFailure(action string, fromState string, toState string, args []interface{},
-	err error) {
-	t := args[0].(*Turnstile)
-
-}
-
-// OnExit 退出
-func (p *TurnstileEventProcessor) OnExit(fromState string, args []interface{}) error {
-	if len(args) == 0 {
-		return fmt.Errorf("OnExit|there is no args")
-	}
-	t := args[0].(*Turnstile)
-	if t.State != fromState {
-		panic(fmt.Errorf("转门 %v 的状态与期望的状态 %s 不一致，可能在状态机外被改变了", t, fromState))
-	}
-
-	return nil
-}

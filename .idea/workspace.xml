@@ -17,21 +17,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
-      <change afterPath="$PROJECT_DIR$/lib/stateManagement/README.MD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/stateManagement/event.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/stateManagement/fsm.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/stateManagement/management.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/stateManagement/state.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/opts.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/stateManagement/fsm.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/stateManagement/fsm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/stateManagement/management.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/stateManagement/management.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/zap/Zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/log/zap/Zap.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/redis/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/comm/redis/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/comm/redis/UniqueID/IdWrapper.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/flowing.lua" beforeDir="false" afterPath="$PROJECT_DIR$/comm/redis/UniqueID/flowing.lua" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +128,15 @@
       <output_directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="go build fsm.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="ccs" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/lib/stateManagement/fsm.go" />
+      <output_directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="ccs" />
       <working_directory value="$PROJECT_DIR$" />
@@ -159,10 +159,12 @@
       <item itemvalue="Go Build.go build ccs main.go" />
       <item itemvalue="Go Build.go build main.go (1)" />
       <item itemvalue="Go Build.go build main.go" />
+      <item itemvalue="Go Build.go build fsm.go" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go (1)" />
+        <item itemvalue="Go Build.go build fsm.go" />
         <item itemvalue="Go Build.go build main.go" />
       </list>
     </recent_temporary>

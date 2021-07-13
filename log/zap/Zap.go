@@ -4,8 +4,8 @@ import (
 	"os"
 	"strings"
 
-	Default "github.com/coomp/log/default"
-	"github.com/coomp/log/fileout"
+	Default "github.com/coomp/ccs/log/default"
+	"github.com/coomp/ccs/log/fileout"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

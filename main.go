@@ -22,7 +22,8 @@ func main() {
 			{Name: "finish", Src: []string{"scanning"}, Dst: "idle"},
 		},
 		stateManagement.Callbacks{
-			"scan": func(e *stateManagement.Event) {
+			"before_scan": func(e *stateManagement.Event) {
+				fmt.Println("1111after_scan: " + e.FSM.Current())
 				fmt.Println("after_scan: " + e.FSM.Current())
 			},
 			"working": func(e *stateManagement.Event) {
