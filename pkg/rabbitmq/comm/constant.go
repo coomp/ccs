@@ -1,5 +1,9 @@
 package comm
 
+import (
+	"encoding/base64"
+)
+
 // NodeState TODO
 type NodeState int
 
@@ -15,6 +19,42 @@ const (
 // Object TODO
 type Object struct {
 	Value interface{}
+}
+
+// Base64Byte TODO
+type Base64Byte []byte
+
+// UnmarshalText TODO
+func (x *Base64Byte) UnmarshalText(text []byte) error {
+	b, e := base64.StdEncoding.DecodeString(string(text))
+	if e != nil {
+		return e
+	}
+	*x = b
+	return nil
+}
+
+// EncodeHeader TODO
+func (msg *Message) EncodeHeader() error {
+	if msg.Headers == nil {
+		return nil
+	}
+	msg.Attribute = msg.Headers.Encode()
+	return nil
+}
+
+// Message TODO
+type Message struct {
+	_msgpack  struct{}   `msgpack:",asArray"`
+	Class     string     `json:"@type,omitempty" msgpack:"-"`
+	Id        int64      `json:"id,omitempty"`
+	Topic     string     `json:"topic,omitempty"`
+	Data      Base64Byte `json:"data,omitempty"`
+	Attribute string     `json:"attribute,omitempty"`
+	Headers   Options    `json:"-" msgpack:"-"`
+	Flag      int32      `json:"flag,omitempty"`
+	End       bool       `json:"end,omitempty"`
+	SourceIp  string     `json:"source_ip,omitempty"`
 }
 
 // HeartbeatResponse TODO

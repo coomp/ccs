@@ -17,18 +17,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fce522-8fac-4dcc-9c4a-cf53a38f4cbf" name="Default Changelist" comment="init">
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/Master.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/parrse.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/stateManagement/README.MD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/stateManagement/event.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/stateManagement/fsm.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/stateManagement/management.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/stateManagement/state.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/opts.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/Config.go" beforeDir="false" afterPath="$PROJECT_DIR$/configs/Config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/def/NetDef.go" beforeDir="false" afterPath="$PROJECT_DIR$/def/NetDef.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/errors/Err.go" beforeDir="false" afterPath="$PROJECT_DIR$/errors/Err.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/client/client.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pool/pools.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pool/pools.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/requestor/Requestor.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/requestor/Requestor.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/comm/constant.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer/Producer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/comm/redis/README.MD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" beforeDir="false" afterPath="$PROJECT_DIR$/comm/redis/UniqueID/IdWrapper.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/UniqueID/flowing.lua" beforeDir="false" afterPath="$PROJECT_DIR$/comm/redis/UniqueID/flowing.lua" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,10 +69,10 @@
     <setting file="file://$PROJECT_DIR$/comm/str.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/requestor/Requestor.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/configs/Config.go" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/pkg/redis/UniqueID/IdWrapper.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/comm/redis/UniqueID/IdWrapper.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/go.sum" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/go.mod" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/pkg/redis/UniqueID/flowing.lua" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/comm/redis/UniqueID/flowing.lua" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/pkg/rabbitmq/base/queue.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/pkg/rabbitmq/base/Message.go" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/pkg/rabbitmq/base/clt.go" root0="FORCE_HIGHLIGHTING" />
@@ -92,7 +95,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/comm" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/stateManagement " />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
@@ -100,15 +103,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/stateManagement " />
+      <recent name="$PROJECT_DIR$/pkg/rabbitmq/comm" />
       <recent name="E:\ccs\comm" />
       <recent name="E:\ccs\pkg\pulsar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/comm" />
       <recent name="$PROJECT_DIR$/pkg/rabbitmq/comm" />
       <recent name="$PROJECT_DIR$/lib/Client" />
       <recent name="E:\ccs\pkg\rabbitmq\base" />
       <recent name="E:\ccs\pkg\tenant\mq\RabbitMQ" />
-      <recent name="E:\ccs\pkg\rabbitmq\comm" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build main.go (1)">
