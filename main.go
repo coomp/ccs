@@ -2,13 +2,31 @@ package main
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/coomp/ccs/lib/stateManagement"
 	"github.com/coomp/ccs/log"
 )
 
+// RealTimeLabelInfo TODO
+type RealTimeLabelInfo struct {
+	HistoricalPayment int
+	NewUser           int
+	ExperienceUser    int
+	OpeningUser       int
+	LstOpenType       int
+	LstPaymentAmount  int
+	LstSource         int
+	LstPaymentMethods int
+}
+
 // main 工程入口
 func main() {
+	var info RealTimeLabelInfo
+	info.LstOpenType = 1
+	info.LstPaymentMethods = 1
+	info.LstSource = 2
+	fmt.Println(unsafe.Sizeof(info))
 	//producer, err := producer.NewRabbitMQProducer("")
 	//producer.Init()
 	log.L.Debug("there is log test")

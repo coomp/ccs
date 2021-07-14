@@ -4,45 +4,18 @@ package stateManagement
 type Event struct {
 	// FSM is a reference to the current FSM.
 	FSM *FSM
-
 	// Event is the event name.
 	Event string
-
-	// Src is the state before the transition.
-	Src string
-
-	// Dst is the state after the transition.
-	Dst string
-
-	// Err is an optional error that can be returned from a callback.
-	Err error
-
 	// Args is a optinal list of arguments passed to the callback.
 	Args []interface{}
 
-	// canceled is an internal flag set if the transition is canceled.
-	canceled bool
+	// cmd http/tcp/udp
+	Cmd string
 
-	// async is an internal flag set if the transition should be asynchronous
-	async bool
+	// Address  ip:port
+	Address string
 }
 
-// Cancel can be called in before_<EVENT> or leave_<STATE> to cancel the
-// current transition before it happens. It takes an opitonal error, which will
-// overwrite e.Err if set before.
-func (e *Event) Cancel(err ...error) {
-	e.canceled = true
-
-	if len(err) > 0 {
-		e.Err = err[0]
-	}
-}
-
-// Async can be called in leave_<STATE> to do an asynchronous state transition.
-//
-// The current state transition will be on hold in the old state until a final
-// call to Transition is made. This will comlete the transition and possibly
-// call the other callbacks.
-func (e *Event) Async() {
-	e.async = true
-}
+// 这里写通用回调
+// beforeEventCallbacks 主要看当前上一个流程状态的回调有没有返回正确,这里注入规则引擎
+// afterEventCallbacks 下一个流程的调用,拿到结果给下一个流程的beforeEventCallbacks

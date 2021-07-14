@@ -39,7 +39,7 @@ type FSM struct {
 	// transitions 当前状态 + 事件 = 新状态  State(S) + Event(E) => State(S')
 	transitions map[eKey]string
 
-	// callbacks 当前状态/当前事件（事件前/事件后/事件中） => 需要回调的方法
+	// callbacks 当前状态/当前事件（事件前/事件后/） => 需要回调的方法 原文还有根据状态的回调事件，这里不需要
 	callbacks map[cKey]Callback
 
 	//--------------------------------//
@@ -96,12 +96,9 @@ func NewFSM(initial string, events []EventDesc, callbacks map[string]Callback) *
 
 	// Build transition map and store sets of all events and states.
 	allEvents := make(map[string]bool) // 事件集合
-	allStates := make(map[string]bool) // 状态集合
 	for _, e := range events {
 		for _, src := range e.Src {
 			f.transitions[eKey{e.Name, src}] = e.Dst //transitions 当前状态 + 事件 = 新状态
-			allStates[src] = true
-			allStates[e.Dst] = true
 		}
 		allEvents[e.Name] = true
 	}
@@ -118,22 +115,6 @@ func NewFSM(initial string, events []EventDesc, callbacks map[string]Callback) *
 			} else if _, ok := allEvents[target]; ok {
 				callbackType = callbackBeforeEvent
 			}
-		case strings.HasPrefix(name, "leave_"):
-			target = strings.TrimPrefix(name, "leave_")
-			if target == "state" {
-				target = ""
-				callbackType = callbackLeaveState
-			} else if _, ok := allStates[target]; ok {
-				callbackType = callbackLeaveState
-			}
-		case strings.HasPrefix(name, "enter_"):
-			target = strings.TrimPrefix(name, "enter_")
-			if target == "state" {
-				target = ""
-				callbackType = callbackEnterState
-			} else if _, ok := allStates[target]; ok {
-				callbackType = callbackEnterState
-			}
 		case strings.HasPrefix(name, "after_"):
 			target = strings.TrimPrefix(name, "after_")
 			if target == "event" {
@@ -144,9 +125,7 @@ func NewFSM(initial string, events []EventDesc, callbacks map[string]Callback) *
 			}
 		default:
 			target = name
-			if _, ok := allStates[target]; ok {
-				callbackType = callbackEnterState
-			} else if _, ok := allEvents[target]; ok {
+			if _, ok := allEvents[target]; ok {
 				callbackType = callbackAfterEvent
 			}
 		}
@@ -277,7 +256,7 @@ func (f *FSM) Event(event string, args ...interface{}) error {
 		return fmt.Errorf("Can not find Event to change sourceState")
 	}
 
-	e := &Event{f, event, f.current, dst, nil, args, false, false}
+	e := &Event{f, event, args, "tcp", "127.0.0.1:12306"}
 
 	err := f.beforeEventCallbacks(e)
 	if err != nil {
@@ -295,15 +274,7 @@ func (f *FSM) Event(event string, args ...interface{}) error {
 		f.current = dst
 		f.stateMu.Unlock()
 
-		f.enterStateCallbacks(e)
 		f.afterEventCallbacks(e)
-	}
-
-	if err = f.leaveStateCallbacks(e); err != nil {
-		//if _, ok := err.(CanceledError); ok {
-		//	f.transition = nil
-		//}
-		return err
 	}
 
 	// Perform the rest of the transition, if not asynchronous.
@@ -314,7 +285,7 @@ func (f *FSM) Event(event string, args ...interface{}) error {
 		return fmt.Errorf("doTransition_err:%s", err.Error())
 	}
 
-	return e.Err
+	return nil
 }
 
 // Transition wraps transitioner.transition.
@@ -346,53 +317,14 @@ func (t transitionerStruct) transition(f *FSM) error {
 	return nil
 }
 
-// enterStateCallbacks calls the enter_ callbacks, first the named then the
-// general version.
-func (f *FSM) enterStateCallbacks(e *Event) {
-	if fn, ok := f.callbacks[cKey{f.current, callbackEnterState}]; ok {
-		fn(e)
-	}
-	if fn, ok := f.callbacks[cKey{"", callbackEnterState}]; ok {
-		fn(e)
-	}
-}
-
 // beforeEventCallbacks calls the before_ callbacks, first the named then the
 // general version.
 func (f *FSM) beforeEventCallbacks(e *Event) error {
 	if fn, ok := f.callbacks[cKey{e.Event, callbackBeforeEvent}]; ok {
 		fn(e)
-		if e.canceled {
-			return fmt.Errorf("CanceledError_%s", e.Err.Error())
-		}
 	}
 	if fn, ok := f.callbacks[cKey{"", callbackBeforeEvent}]; ok {
 		fn(e)
-		if e.canceled {
-			return fmt.Errorf("CanceledError_%s", e.Err.Error())
-		}
-	}
-	return nil
-}
-
-// leaveStateCallbacks calls the leave_ callbacks, first the named then the
-// general version.
-func (f *FSM) leaveStateCallbacks(e *Event) error {
-	if fn, ok := f.callbacks[cKey{f.current, callbackLeaveState}]; ok {
-		fn(e)
-		if e.canceled {
-			return fmt.Errorf("CanceledError_%s", e.Err.Error())
-		} else if e.async {
-			return fmt.Errorf("AsyncError_%s", e.Err.Error())
-		}
-	}
-	if fn, ok := f.callbacks[cKey{"", callbackLeaveState}]; ok {
-		fn(e)
-		if e.canceled {
-			return fmt.Errorf("CanceledError_%s", e.Err.Error())
-		} else if e.async {
-			return fmt.Errorf("AsyncError_%s", e.Err.Error())
-		}
 	}
 	return nil
 }
@@ -400,7 +332,5 @@ func (f *FSM) leaveStateCallbacks(e *Event) error {
 const (
 	callbackNone int = iota
 	callbackBeforeEvent
-	callbackLeaveState
-	callbackEnterState
 	callbackAfterEvent
 )
