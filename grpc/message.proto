@@ -1,0 +1,60 @@
+syntax = "proto3";
+ 
+// message 包
+package message;
+
+// 指定 go 的包路径及包名
+option go_package="pkg/services;services";
+
+// User 服务及服务接口的定义
+service ServiceMessage {
+    rpc OnMessageRequest(MessageRequest) returns (MessageResponse) {}
+    rpc OnEcho(EchoRequest) returns (EchoResponse) {}
+}
+
+// + Referer
+//   + TimeStamp
+//   + Value - SDK(CCS_SDK-1.0.1-10.0.0.12)/CCS(CCS_SVR-1.0.1-172.16.0.1) etc.
+
+// + MessageConext
+//   + AppId - 应用 ID
+//   + ServiceId - 服务 ID
+//   + Token - 签名的 Token
+//   + TimeStamp - 消息产生的时间戳
+//   + Payload - 消息体
+//   + []Referer - 引用该消息的实体 [SDK -> CCS -> Service1 -> ServiceN] - 用于消息的跟踪和分析
+
+message EchoRequest {
+    string str = 1;
+}
+
+message EchoResponse {
+    string str = 1;
+}
+
+// 请求消息的引用类型
+message Referer {
+    int64 timestamp = 1;
+    string value = 2;
+}
+
+// 请求消息类型
+message MessageRequest {
+    string app_id = 1;
+    string service_id = 2;
+    string token = 3;
+    string timestamp = 4; // 最后一次被处理的时间戳
+    string payload = 5;
+    repeated Referer referers = 6;
+    bool need_resp_referers = 7;
+}
+
+// 返回消息类型
+message MessageResponse {
+    string app_id = 1;
+    string service_id = 2;
+    string resp_service_id = 3;
+    string timestamp = 4; // 最后一次被处理的时间戳
+    string payload = 5;
+    repeated Referer referers = 6;
+}

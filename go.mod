@@ -11,6 +11,7 @@ require (
 	github.com/vmihailenco/msgpack v4.0.4+incompatible
 	github.com/xuyu/goredis v0.0.0-20160929021245-89fbe9474b37
 	go.uber.org/zap v1.17.0
+	google.golang.org/grpc v1.39.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/yaml.v2 v2.4.0
 )
