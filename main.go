@@ -27,8 +27,8 @@ func main() {
 	info.LstPaymentMethods = 1
 	info.LstSource = 2
 	fmt.Println(unsafe.Sizeof(info))
-	//producer, err := producer.NewRabbitMQProducer("")
-	//producer.Init()
+	// producer, err := producer.NewRabbitMQProducer("")
+	// producer.Init()
 	log.L.Debug("there is log test")
 	fsm := stateManagement.NewFSM(
 		"idle",
