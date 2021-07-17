@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/coomp/ccs/lib/stateManagement"
 	"github.com/coomp/ccs/log"
+	"github.com/coomp/lib/fsm"
 )
 
 // RealTimeLabelInfo TODO
@@ -27,30 +27,29 @@ func main() {
 	info.LstPaymentMethods = 1
 	info.LstSource = 2
 	fmt.Println(unsafe.Sizeof(info))
-	// producer, err := producer.NewRabbitMQProducer("")
-	// producer.Init()
+
 	log.L.Debug("there is log test")
-	fsm := stateManagement.NewFSM(
+	fsm := fsm.NewFSM(
 		"idle",
-		stateManagement.Events{
+		fsm.Events{
 			{Name: "scan", Src: []string{"idle"}, Dst: "scanning"},
 			{Name: "working", Src: []string{"scanning"}, Dst: "scanning"},
 			{Name: "situation", Src: []string{"scanning"}, Dst: "scanning"},
 			{Name: "situation", Src: []string{"idle"}, Dst: "idle"},
 			{Name: "finish", Src: []string{"scanning"}, Dst: "idle"},
 		},
-		stateManagement.Callbacks{
-			"before_scan": func(e *stateManagement.Event) {
+		fsm.Callbacks{
+			"before_scan": func(e *fsm.Event) {
 				fmt.Println("1111after_scan: " + e.FSM.Current())
 				fmt.Println("after_scan: " + e.FSM.Current())
 			},
-			"working": func(e *stateManagement.Event) {
+			"working": func(e *fsm.Event) {
 				fmt.Println("working: " + e.FSM.Current())
 			},
-			"situation": func(e *stateManagement.Event) {
+			"situation": func(e *fsm.Event) {
 				fmt.Println("situation: " + e.FSM.Current())
 			},
-			"finish": func(e *stateManagement.Event) {
+			"finish": func(e *fsm.Event) {
 				fmt.Println("finish: " + e.FSM.Current())
 			},
 		},

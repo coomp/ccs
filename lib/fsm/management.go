@@ -1,4 +1,4 @@
-package stateManagement
+package fsm
 
 import (
 	"fmt"

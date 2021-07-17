@@ -1,4 +1,4 @@
-package stateManagement
+package fsm
 
 // Event is the info that get passed as a reference in the callbacks.
 type Event struct {

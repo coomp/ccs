@@ -8,8 +8,6 @@ import (
 	"time"
 )
 
-var nowFunc = time.Now
-
 // Pool TODO
 type Pool struct {
 	// 建立tcp连接

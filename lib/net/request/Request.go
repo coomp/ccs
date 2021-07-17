@@ -1,8 +1,9 @@
 package request
 
 import (
-	"github.com/coomp/ccs/errors"
 	"time"
+
+	"github.com/coomp/ccs/errors"
 )
 
 // Request Requestor接口的具体实现
@@ -32,7 +33,6 @@ func (r *Request) GetErrCode() int {
 	}
 	return 0
 }
-
 
 // GetCommuErrMsg get commu error message
 func (r *Request) GetCommuErrMsg() string {

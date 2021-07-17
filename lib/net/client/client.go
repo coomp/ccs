@@ -18,7 +18,6 @@ import (
 	"github.com/coomp/ccs/def"
 	requestor "github.com/coomp/ccs/lib/Requestor"
 	"github.com/coomp/ccs/lib/request"
-	"github.com/coomp/ccs/pkg/rabbitmq/comm"
 	"github.com/golang/snappy"
 	"github.com/vmihailenco/msgpack"
 )
