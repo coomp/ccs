@@ -16,8 +16,8 @@ import (
 
 	"github.com/coomp/ccs/configs"
 	"github.com/coomp/ccs/def"
-	requestor "github.com/coomp/ccs/lib/Requestor"
-	"github.com/coomp/ccs/lib/request"
+	"github.com/coomp/ccs/lib/net/request"
+	"github.com/coomp/ccs/lib/net/requestor"
 	"github.com/golang/snappy"
 	"github.com/vmihailenco/msgpack"
 )

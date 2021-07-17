@@ -1,5 +1,11 @@
 # CCS
 
+## dev
+
++ Clone code
++ `go mod tidy`
++ `go build .`
+
 ## TODO
 
 - SDK 0%
