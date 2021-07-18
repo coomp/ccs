@@ -20,6 +20,7 @@ func Execute() error {
 func init() {
 
 	rootCmd.AddCommand(NewFSMCmd())
-	rootCmd.AddCommand(NewCCSServerCmd())
+	rootCmd.AddCommand(NewMessageServerCmd())
 	// TODO add other cmds here
+	rootCmd.AddCommand(NewClientCmd())
 }

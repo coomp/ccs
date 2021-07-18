@@ -43,7 +43,7 @@ message MessageRequest {
     string app_id = 1;
     string service_id = 2;
     string token = 3;
-    string timestamp = 4; // 最后一次被处理的时间戳
+    int64 timestamp = 4; // 最后一次被处理的时间戳
     string payload = 5;
     repeated Referer referers = 6;
     bool need_resp_referers = 7;
@@ -54,7 +54,8 @@ message MessageResponse {
     string app_id = 1;
     string service_id = 2;
     string resp_service_id = 3;
-    string timestamp = 4; // 最后一次被处理的时间戳
+    int64 timestamp = 4; // 最后一次被处理的时间戳
     string payload = 5;
     repeated Referer referers = 6;
+    int32 code = 7;
 }

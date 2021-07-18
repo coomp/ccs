@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/coomp/ccs/cmd/app"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -14,7 +15,7 @@ var (
 	listen  string
 )
 
-func NewCCSServerCmd() *cobra.Command {
+func NewMessageServerCmd() *cobra.Command {
 
 	var serverCmd = &cobra.Command{
 		Use:   "server",
@@ -23,7 +24,8 @@ func NewCCSServerCmd() *cobra.Command {
 		Args:  cobra.MinimumNArgs(0),
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("Starting ccs server: " + viper.GetString("listen") + " ...")
-
+			svr := app.NewMessageServer(viper.GetString("listen"))
+			svr.Start()
 		},
 	}
 
