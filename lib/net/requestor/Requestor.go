@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/coomp/ccs/comm"
-	"github.com/coomp/ccs/def"
 	"github.com/coomp/ccs/errors"
+	"github.com/coomp/ccs/lib/net/def"
 	"github.com/coomp/ccs/lib/net/pool"
 	"github.com/coomp/ccs/log"
 )

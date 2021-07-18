@@ -22,11 +22,11 @@ const (
 
 const (
 	// READY TODO
-	READY NodeState = 0
+	READY int = 0
 	// RUNNING TODO
-	RUNNING NodeState = 1
+	RUNNING int = 1
 	// STOP TODO
-	STOP NodeState = 2
+	STOP int = 2
 )
 
 const (

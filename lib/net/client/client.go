@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/coomp/ccs/configs"
-	"github.com/coomp/ccs/def"
+	"github.com/coomp/ccs/lib/net/def"
 	"github.com/coomp/ccs/lib/net/request"
 	"github.com/coomp/ccs/lib/net/requestor"
 	"github.com/golang/snappy"
@@ -50,8 +50,8 @@ type Codec struct {
 // Client Client
 type Client struct {
 	request.Request
-	ReqBody    *comm.RequestWrapper
-	RspBody    *comm.ResponseWrapper
+	ReqBody    string
+	RspBody    string
 	Configs    configs.Config // 可以通过config拿dataSource信息
 	DataSource string         // 也可以通过租户下发
 	Codec
@@ -139,25 +139,25 @@ func Disassemble(dataSourceName string) (ReqInfo *requestor.ReqInfo, err error) 
 	if err != nil {
 		err = fmt.Errorf("Disassemble atoi err:%s", err.Error())
 	}
-	if u, perr := comm.ParsePortalMessage(s[1]); perr != nil {
-		err = fmt.Errorf("Disassemble ParsePortalMessage err:%s", err.Error())
-		return
-	} else {
-		if itimeout, ierr := strconv.Atoi(u.Get("timeout")); ierr != nil {
-			err = fmt.Errorf("Disassemble atoi err:%s", err.Error())
-			return
-		} else {
-			ReqInfo.Timeout = time.Duration(itimeout) * time.Second
-		}
-		if iReqType, ierr := strconv.Atoi(u.Get("reqtype")); ierr != nil {
-			err = fmt.Errorf("Disassemble atoi err:%s", err.Error())
-			return
-		} else {
-			ReqInfo.ReqType = iReqType
-		}
-		ReqInfo.Address = u.Get("address")
-		ReqInfo.Network = u.Get("network")
-	}
+	// if u, perr := comm.ParsePortalMessage(s[1]); perr != nil {
+	// 	err = fmt.Errorf("Disassemble ParsePortalMessage err:%s", err.Error())
+	// 	return
+	// } else {
+	// 	if itimeout, ierr := strconv.Atoi(u.Get("timeout")); ierr != nil {
+	// 		err = fmt.Errorf("Disassemble atoi err:%s", err.Error())
+	// 		return
+	// 	} else {
+	// 		ReqInfo.Timeout = time.Duration(itimeout) * time.Second
+	// 	}
+	// 	if iReqType, ierr := strconv.Atoi(u.Get("reqtype")); ierr != nil {
+	// 		err = fmt.Errorf("Disassemble atoi err:%s", err.Error())
+	// 		return
+	// 	} else {
+	// 		ReqInfo.ReqType = iReqType
+	// 	}
+	// 	ReqInfo.Address = u.Get("address")
+	// 	ReqInfo.Network = u.Get("network")
+	// }
 	return
 }
 
@@ -191,12 +191,12 @@ func (codec *Client) Unmarshal(b []byte) error {
 	}
 	switch c {
 	case def.JsonType:
-		res := &comm.ResponseWrapper{ResponseData: &comm.Object{Value: &comm.RpcResponse{}}}
+		res := "&comm.ResponseWrapper{ResponseData: &comm.Object{Value: &comm.RpcResponse{}}}"
 		e := json.Unmarshal(data, res)
 		codec.RspBody = res
 		return e
 	case def.Msgpack:
-		res := &comm.ResponseWrapper{ResponseData: &comm.Object{Value: &comm.RpcResponse{}}}
+		res := "&comm.ResponseWrapper{ResponseData: &comm.Object{Value: &comm.RpcResponse{}}}"
 		e := msgpack.Unmarshal(data, res)
 		codec.RspBody = res
 		return e
