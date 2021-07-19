@@ -2,7 +2,6 @@ package services
 
 type MessageQueueRepository interface {
 	Send(msg string) error
-	SendTimeout(msg string, timeout_sec int) error
 }
 
 type MessageQueueService struct {
