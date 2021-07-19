@@ -1,7 +1,7 @@
 package services
 
 type MessageQueueRepository interface {
-	Send(msg string) error
+	Send(topic, msg string) error
 }
 
 type MessageQueueService struct {
@@ -14,6 +14,6 @@ func NewMessageQueueService(repo MessageQueueRepository) *MessageQueueService {
 	}
 }
 
-func (s *MessageQueueService) Send(msg string) error {
-	return s.Repo.Send(msg)
+func (s *MessageQueueService) Send(topic, msg string) error {
+	return s.Repo.Send(topic, msg)
 }

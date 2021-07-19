@@ -16,4 +16,6 @@ require (
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/yaml.v2 v2.4.0
+	gorm.io/driver/sqlite v1.1.4 // indirect
+	gorm.io/gorm v1.21.12 // indirect
 )
