@@ -1,0 +1,21 @@
+fsms:
+  - fsm:
+      init: "idle"
+      evenList:
+        - Name: "scan"
+          Src: "idle"
+          Dst: "scanning"
+          Callbacks: {"before_scan": "callback_before"}
+        - Name: "working"
+          Src: "scanning"
+          Dst: "scanning"
+          Callbacks: {"before_scan": "callback_working"}
+        - Name: "situation"
+          Src: "scanning"
+          Dst: "scanning"
+          Callbacks: {"before_scan": "callback_situation"}
+        - Name: "working"
+          Src: "scanning"
+          Dst: "scanning"
+          Callbacks: { "before_scan": "callback_working" }
+
