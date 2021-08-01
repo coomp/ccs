@@ -1,3 +1,4 @@
+listen: localhost:2389
 fsms:
   - fsm:
       init: "idle"
@@ -18,4 +19,3 @@ fsms:
           Src: "scanning"
           Dst: "scanning"
           Callbacks: { "before_scan": "callback_working" }
-

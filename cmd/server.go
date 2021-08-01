@@ -3,8 +3,12 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"sync"
 
 	"github.com/coomp/ccs/cmd/app"
+	"github.com/coomp/ccs/configs"
+	"github.com/coomp/ccs/log"
+	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -13,6 +17,7 @@ var (
 	// Used for flags.
 	cfgFile string
 	listen  string
+	rw      sync.RWMutex
 )
 
 func NewMessageServerCmd() *cobra.Command {
@@ -61,4 +66,17 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
+
+	// 获取fsm 后续所有的配置从这里拿
+	configs.Cfg = viper.Get("fsms")
+	fmt.Printf("cfg: %v", configs.Cfg)
+	// 获取变动
+	viper.OnConfigChange(func(e fsnotify.Event) {
+		rw.Lock()
+		configs.Cfg = viper.Get("fsms")
+		rw.Unlock()
+		log.L.Debug("config are changing")
+	})
+
+	go viper.WatchConfig()
 }

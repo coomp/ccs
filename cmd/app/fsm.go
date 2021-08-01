@@ -38,17 +38,19 @@ func init() {
 	t := time.NewTimer(time.Second * 2)
 	defer t.Stop()
 
-	for {
-		<-t.C
-		if configs.Cfg != nil {
-			// 如果不是空的,初始化进来
-			FsmConfList := getFsmConf(configs.Cfg)
-			fmt.Println(FsmConfList)
-			//fmt.Println("fmt.Println(configList)", configs.Cfg)
+	go func() {
+		for {
+			<-t.C
+			if configs.Cfg != nil {
+				// 如果不是空的,初始化进来
+				FsmConfList := getFsmConf(configs.Cfg)
+				fmt.Println(FsmConfList)
+				//fmt.Println("fmt.Println(configList)", configs.Cfg)
+			}
+			// need reset
+			t.Reset(time.Second * 2)
 		}
-		// need reset
-		t.Reset(time.Second * 2)
-	}
+	}()
 }
 
 func getEvent(conf map[interface{}]interface{}) (event event) {
